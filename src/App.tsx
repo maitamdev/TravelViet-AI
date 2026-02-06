@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
 // Pages
 import LandingPage from "./pages/LandingPage";
@@ -33,15 +34,15 @@ const App = () => (
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/share/:slug" element={<SharePage />} />
-          
+
           {/* Dashboard routes (protected) */}
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/trips" element={<TripsPage />} />
-          <Route path="/trips/:tripId" element={<TripDetailPage />} />
-          <Route path="/chat" element={<ChatPage />} />
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          
+          <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+          <Route path="/trips" element={<ProtectedRoute><TripsPage /></ProtectedRoute>} />
+          <Route path="/trips/:tripId" element={<ProtectedRoute><TripDetailPage /></ProtectedRoute>} />
+          <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+          <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Routes>
