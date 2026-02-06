@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TravelViet Design System
+   Vietnamese Heritage Colors: Red-Gold-Teal with Modern Touches
+   Inspired by: Ao Dai patterns, lanterns, terraced rice fields
+*/
+
+@layer base {
+  :root {
+    /* Core Brand - Vietnamese Red/Gold Heritage */
+    --background: 45 30% 98%;
+    --foreground: 20 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 20 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 25% 15%;
+
+    /* Primary - Vietnamese Red (Đỏ Truyền Thống) */
+    --primary: 4 80% 50%;
+    --primary-foreground: 45 100% 97%;
+
+    /* Secondary - Golden Sand */
+    --secondary: 42 90% 55%;
+    --secondary-foreground: 20 25% 10%;
+
+    /* Muted - Soft Bamboo */
+    --muted: 45 25% 92%;
+    --muted-foreground: 20 15% 45%;
+
+    /* Accent - Teal Waters (Vịnh Hạ Long) */
+    --accent: 175 65% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Success - Rice Field Green */
+    --success: 145 60% 42%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Lantern Orange */
+    --warning: 35 95% 55%;
+    --warning-foreground: 20 25% 10%;
+
+    /* Destructive */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 45 20% 88%;
+    --input: 45 20% 88%;
+    --ring: 4 80% 50%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 20 25% 12%;
+    --sidebar-foreground: 45 25% 92%;
+    --sidebar-primary: 4 80% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 20 20% 18%;
+    --sidebar-accent-foreground: 45 25% 92%;
+    --sidebar-border: 20 20% 20%;
+    --sidebar-ring: 4 80% 55%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(4 80% 50%) 0%, hsl(35 95% 55%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(175 65% 40%) 0%, hsl(145 60% 42%) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(45 30% 98%) 0%, hsl(42 40% 95%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(20 25% 12%) 0%, hsl(20 30% 8%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(20 25% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(20 25% 15% / 0.1), 0 2px 4px -2px hsl(20 25% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(20 25% 15% / 0.1), 0 4px 6px -4px hsl(20 25% 15% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(20 25% 15% / 0.1), 0 8px 10px -6px hsl(20 25% 15% / 0.1);
+    --shadow-glow: 0 0 20px hsl(4 80% 50% / 0.3);
+    --shadow-accent-glow: 0 0 20px hsl(175 65% 40% / 0.3);
+  }
+
+  .dark {
+    --background: 20 25% 8%;
+    --foreground: 45 25% 95%;
+
+    --card: 20 25% 12%;
+    --card-foreground: 45 25% 95%;
+
+    --popover: 20 25% 12%;
+    --popover-foreground: 45 25% 95%;
+
+    --primary: 4 75% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 42 85% 50%;
+    --secondary-foreground: 20 25% 10%;
+
+    --muted: 20 20% 18%;
+    --muted-foreground: 45 15% 65%;
+
+    --accent: 175 55% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 145 55% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 35 90% 50%;
+    --warning-foreground: 20 25% 10%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 20 20% 22%;
+    --input: 20 20% 22%;
+    --ring: 4 75% 55%;
+
+    --sidebar-background: 20 30% 6%;
+    --sidebar-foreground: 45 25% 92%;
+    --sidebar-primary: 4 75% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 20 25% 12%;
+    --sidebar-accent-foreground: 45 25% 92%;
+    --sidebar-border: 20 25% 15%;
+    --sidebar-ring: 4 75% 55%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(4 75% 55%) 0%, hsl(35 90% 50%) 100%);
+    --shadow-glow: 0 0 25px hsl(4 75% 55% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted/50;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer components {
+  /* Hero Button Gradient */
+  .btn-hero {
+    @apply relative overflow-hidden font-semibold text-white transition-all duration-300;
+    background: var(--gradient-hero);
+  }
+
+  .btn-hero:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .btn-hero:active {
+    transform: translateY(0);
+  }
+
+  /* Accent Button */
+  .btn-accent {
+    @apply relative overflow-hidden font-semibold text-white transition-all duration-300;
+    background: var(--gradient-accent);
+  }
+
+  .btn-accent:hover {
+    box-shadow: var(--shadow-accent-glow);
+    transform: translateY(-2px);
+  }
+
+  /* Glass Card Effect */
+  .glass-card {
+    @apply backdrop-blur-md border;
+    background: hsl(var(--card) / 0.8);
+  }
+
+  /* Vietnam Pattern Overlay */
+  .pattern-lantern {
+    background-image: radial-gradient(circle at 25% 25%, hsl(4 80% 50% / 0.05) 0%, transparent 50%),
+                      radial-gradient(circle at 75% 75%, hsl(42 90% 55% / 0.05) 0%, transparent 50%);
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-hero);
+  }
+
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-accent);
+  }
+
+  /* Card Hover Animation */
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+
+  .card-hover:hover {
+    @apply shadow-lg;
+    transform: translateY(-4px);
+  }
+
+  /* Icon Containers */
+  .icon-badge {
+    @apply flex items-center justify-center rounded-xl p-3;
+    background: var(--gradient-hero);
+  }
+
+  .icon-badge-accent {
+    @apply flex items-center justify-center rounded-xl p-3;
+    background: var(--gradient-accent);
+  }
+
+  /* Section Divider */
+  .divider-gradient {
+    @apply h-1 w-24 rounded-full;
+    background: var(--gradient-hero);
+  }
+
+  /* Loading shimmer */
+  .shimmer {
+    @apply relative overflow-hidden;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Floating animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Pulse glow */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 5px hsl(4 80% 50% / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 20px hsl(4 80% 50% / 0.6);
+    }
+  }
+}
+
+@layer utilities {
+  /* Focus visible styles */
+  .focus-ring {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
