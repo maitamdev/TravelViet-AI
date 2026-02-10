@@ -134,8 +134,10 @@ export function AuthForm({ mode }: AuthFormProps) {
             className="h-16 w-auto mx-auto"
           />
         </div>
-        <CardTitle className="text-2xl font-bold">{titles[mode].title}</CardTitle>
-        <CardDescription>{titles[mode].description}</CardDescription>
+        <CardTitle className="text-3xl font-bold mb-2">
+          <span className="text-gradient">{titles[mode].title}</span>
+        </CardTitle>
+        <CardDescription className="text-base">{titles[mode].description}</CardDescription>
       </CardHeader>
 
       <CardContent>
