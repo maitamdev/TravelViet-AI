@@ -1,10 +1,10 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  LayoutDashboard, 
-  Map, 
-  MessageSquare, 
-  Users, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Map,
+  MessageSquare,
+  Users,
+  Settings,
   LogOut,
   Menu,
   X,
@@ -39,7 +39,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/login');
+    navigate('/');
   };
 
   const getInitials = (name: string | null) => {
