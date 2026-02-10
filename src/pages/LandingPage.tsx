@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { 
-  Plane, 
-  Sparkles, 
-  Map, 
-  Users, 
+import {
+  Plane,
+  Sparkles,
+  Map,
+  Users,
   Calendar,
   ArrowRight,
   Star,
@@ -52,12 +52,14 @@ export default function LandingPage() {
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-12">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-              <Plane className="h-5 w-5 text-primary-foreground" />
-            </div>
+            <img
+              src="/logo.png"
+              alt="TravelViet Logo"
+              className="h-10 w-auto"
+            />
             <span className="font-bold text-xl">TravelViet</span>
           </div>
-          
+
           <div className="flex items-center gap-4">
             {user ? (
               <Button asChild className="btn-hero">
@@ -86,15 +88,15 @@ export default function LandingPage() {
               <Sparkles className="h-4 w-4" />
               <span className="text-sm font-medium">AI-Powered Travel Planning</span>
             </div>
-            
+
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
               <span className="text-gradient">Khám Phá Việt Nam</span>
               <br />
               <span className="text-foreground">Cùng Trợ Lý AI Thông Minh</span>
             </h1>
-            
+
             <p className="text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              TravelViet giúp bạn lên kế hoạch du lịch hoàn hảo với công nghệ AI, 
+              TravelViet giúp bạn lên kế hoạch du lịch hoàn hảo với công nghệ AI,
               từ lịch trình chi tiết đến gợi ý địa điểm ẩn giấu và quản lý chi phí.
             </p>
 
@@ -137,7 +139,7 @@ export default function LandingPage() {
               Tính Năng <span className="text-gradient">Nổi Bật</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Công nghệ AI tiên tiến kết hợp với kiến thức địa phương sâu sắc 
+              Công nghệ AI tiên tiến kết hợp với kiến thức địa phương sâu sắc
               để mang đến trải nghiệm du lịch hoàn hảo
             </p>
           </div>
@@ -224,7 +226,7 @@ export default function LandingPage() {
               Sẵn Sàng Khám Phá Việt Nam?
             </h2>
             <p className="text-muted-foreground mb-8">
-              Tham gia cùng hàng nghìn du khách đang sử dụng TravelViet để lên kế hoạch 
+              Tham gia cùng hàng nghìn du khách đang sử dụng TravelViet để lên kế hoạch
               cho những chuyến đi đáng nhớ
             </p>
             <Button asChild size="lg" className="btn-hero text-lg px-8">
@@ -242,7 +244,11 @@ export default function LandingPage() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
-              <Plane className="h-5 w-5 text-primary" />
+              <img
+                src="/logo.png"
+                alt="TravelViet Logo"
+                className="h-5 w-auto"
+              />
               <span className="font-semibold">TravelViet</span>
             </div>
             <p className="text-sm text-muted-foreground">
