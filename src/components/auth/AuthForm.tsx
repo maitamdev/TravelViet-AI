@@ -190,7 +190,7 @@ export function AuthForm({ mode }: AuthFormProps) {
               </Link>
             </div>
 
-            <Button type="submit" className="btn-hero w-full" disabled={isSubmitting}>
+            <Button type="submit" className="btn-hero w-full h-12" disabled={isSubmitting}>
               {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
               Đăng nhập
             </Button>
