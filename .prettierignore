@@ -1,0 +1,22 @@
+# .prettierignore
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Misc
+.DS_Store
+*.log
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
