@@ -252,6 +252,24 @@ export function AuthForm({ mode }: AuthFormProps) {
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
+
+              {/* Password Strength Indicator */}
+              {registerForm.watch('password') && (
+                <div className="space-y-1">
+                  <div className="flex gap-1">
+                    <div className={`h-1 flex-1 rounded ${registerForm.watch('password').length >= 8 ? 'bg-green-500' : 'bg-gray-200'}`}></div>
+                    <div className={`h-1 flex-1 rounded ${registerForm.watch('password').length >= 10 && /[A-Z]/.test(registerForm.watch('password')) ? 'bg-green-500' : 'bg-gray-200'}`}></div>
+                    <div className={`h-1 flex-1 rounded ${registerForm.watch('password').length >= 12 && /[A-Z]/.test(registerForm.watch('password')) && /[0-9]/.test(registerForm.watch('password')) ? 'bg-green-500' : 'bg-gray-200'}`}></div>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {registerForm.watch('password').length < 8 && 'Mật khẩu yếu'}
+                    {registerForm.watch('password').length >= 8 && registerForm.watch('password').length < 10 && 'Mật khẩu trung bình'}
+                    {registerForm.watch('password').length >= 10 && /[A-Z]/.test(registerForm.watch('password')) && 'Mật khẩu mạnh'}
+                    {registerForm.watch('password').length >= 12 && /[A-Z]/.test(registerForm.watch('password')) && /[0-9]/.test(registerForm.watch('password')) && 'Mật khẩu rất mạnh'}
+                  </p>
+                </div>
+              )}
+
               {registerForm.formState.errors.password && (
                 <p className="text-sm text-destructive">{registerForm.formState.errors.password.message}</p>
               )}
