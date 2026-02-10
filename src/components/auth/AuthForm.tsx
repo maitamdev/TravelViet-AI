@@ -185,7 +185,7 @@ export function AuthForm({ mode }: AuthFormProps) {
             </div>
 
             <div className="flex justify-end">
-              <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+              <Link to="/forgot-password" className="text-sm text-primary hover:text-primary/80 hover:underline transition-colors font-medium">
                 Quên mật khẩu?
               </Link>
             </div>
