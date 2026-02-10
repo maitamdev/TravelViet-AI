@@ -67,8 +67,8 @@ export function AuthForm({ mode }: AuthFormProps) {
     if (error) {
       toast({
         title: 'Đăng nhập thất bại',
-        description: error.message === 'Invalid login credentials' 
-          ? 'Email hoặc mật khẩu không đúng' 
+        description: error.message === 'Invalid login credentials'
+          ? 'Email hoặc mật khẩu không đúng'
           : error.message,
         variant: 'destructive',
       });
@@ -125,7 +125,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md glass-card border-border/50">
+    <Card className="w-full max-w-md backdrop-blur-xl bg-white/80 border-white/20 shadow-2xl shadow-purple-500/10">
       <CardHeader className="text-center">
         <div className="mx-auto mb-4 h-12 w-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
           <span className="text-2xl">✈️</span>
