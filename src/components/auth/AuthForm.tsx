@@ -184,7 +184,17 @@ export function AuthForm({ mode }: AuthFormProps) {
               )}
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                />
+                <label htmlFor="remember" className="text-sm text-gray-700 cursor-pointer">
+                  Ghi nhớ đăng nhập
+                </label>
+              </div>
               <Link to="/forgot-password" className="text-sm text-primary hover:text-primary/80 hover:underline transition-colors font-medium">
                 Quên mật khẩu?
               </Link>
