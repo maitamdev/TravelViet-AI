@@ -125,7 +125,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md backdrop-blur-xl bg-white/80 border-white/20 shadow-2xl shadow-purple-500/10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <Card className="w-full max-w-md backdrop-blur-xl bg-white/80 border-white/20 shadow-2xl shadow-purple-500/10 animate-in fade-in slide-in-from-bottom-4 duration-700 rounded-2xl">
       <CardHeader className="text-center">
         <div className="mx-auto mb-6 animate-in fade-in zoom-in duration-500">
           <img
