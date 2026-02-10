@@ -142,7 +142,7 @@ export function AuthForm({ mode }: AuthFormProps) {
 
       <CardContent>
         {mode === 'login' && (
-          <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-4">
+          <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
