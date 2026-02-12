@@ -12,6 +12,7 @@ import {
   Shield
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { motion } from 'framer-motion';
 
 export default function LandingPage() {
   const { user } = useAuth();
@@ -50,7 +51,12 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden pattern-lantern">
         {/* Navigation */}
-        <nav className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-12">
+        <motion.nav
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-12"
+        >
           <div className="flex items-center gap-3">
             <img
               src="/logo.png"
@@ -79,28 +85,59 @@ export default function LandingPage() {
               </>
             )}
           </div>
-        </nav>
+        </motion.nav>
 
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-6 pt-16 pb-24 lg:pt-24 lg:pb-32">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
-              <Sparkles className="h-4 w-4" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6"
+            >
+              <motion.div
+                animate={{
+                  y: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Sparkles className="h-4 w-4" />
+              </motion.div>
               <span className="text-sm font-medium">AI-Powered Travel Planning</span>
-            </div>
+            </motion.div>
 
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="text-4xl lg:text-6xl font-bold mb-6 leading-tight"
+            >
               <span className="text-gradient">Khám Phá Việt Nam</span>
               <br />
               <span className="text-foreground">Cùng Trợ Lý AI Thông Minh</span>
-            </h1>
+            </motion.h1>
 
-            <p className="text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+            >
               TravelViet giúp bạn lên kế hoạch du lịch hoàn hảo với công nghệ AI,
               từ lịch trình chi tiết đến gợi ý địa điểm ẩn giấu và quản lý chi phí.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            >
               <Button asChild size="lg" className="btn-hero text-lg px-8">
                 <Link to={user ? '/dashboard' : '/register'}>
                   {user ? 'Vào Dashboard' : 'Bắt Đầu Miễn Phí'}
@@ -112,29 +149,69 @@ export default function LandingPage() {
                   Khám Phá Lịch Trình
                 </Link>
               </Button>
-            </div>
+            </motion.div>
 
             {/* Stats */}
-            <div className="flex justify-center gap-8 lg:gap-16">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.6 }}
+              className="flex justify-center gap-8 lg:gap-16"
+            >
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                  className="text-center"
+                >
                   <p className="text-3xl lg:text-4xl font-bold text-gradient">{stat.value}</p>
                   <p className="text-sm text-muted-foreground">{stat.label}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+          className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"
+        />
       </section>
 
       {/* Features Section */}
       <section className="py-20 lg:py-32 bg-muted/30">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Tính Năng <span className="text-gradient">Nổi Bật</span>
             </h2>
@@ -142,20 +219,35 @@ export default function LandingPage() {
               Công nghệ AI tiên tiến kết hợp với kiến thức địa phương sâu sắc
               để mang đến trải nghiệm du lịch hoàn hảo
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+                }}
                 className="p-6 rounded-2xl bg-card border border-border card-hover"
               >
-                <div className="icon-badge w-12 h-12 mb-4">
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                    rotate: [0, -10, 10, -10, 0]
+                  }}
+                  transition={{ duration: 0.5 }}
+                  className="icon-badge w-12 h-12 mb-4"
+                >
                   <feature.icon className="h-6 w-6 text-primary-foreground" />
-                </div>
+                </motion.div>
                 <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -164,11 +256,17 @@ export default function LandingPage() {
       {/* How It Works */}
       <section className="py-20 lg:py-32">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Cách <span className="text-gradient">Hoạt Động</span>
             </h2>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
@@ -188,13 +286,24 @@ export default function LandingPage() {
                 description: 'Tận hưởng chuyến du lịch với hướng dẫn chi tiết từng bước',
               },
             ].map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="text-center"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4"
+                >
                   <span className="text-xl font-bold text-primary-foreground">{item.step}</span>
-                </div>
+                </motion.div>
                 <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -203,25 +312,44 @@ export default function LandingPage() {
       {/* Trust Signals */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-8 lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-8 lg:gap-16"
+          >
             {[
               { icon: Star, text: 'Được đánh giá 5 sao' },
               { icon: Zap, text: 'Lên kế hoạch trong 30s' },
               { icon: Shield, text: 'Bảo mật dữ liệu' },
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-3">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex items-center gap-3"
+              >
                 <item.icon className="h-5 w-5 text-primary" />
                 <span className="text-sm font-medium">{item.text}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-20 lg:py-32">
         <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center p-8 lg:p-12 rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-border">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto text-center p-8 lg:p-12 rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-border"
+          >
             <h2 className="text-2xl lg:text-3xl font-bold mb-4">
               Sẵn Sàng Khám Phá Việt Nam?
             </h2>
@@ -229,13 +357,18 @@ export default function LandingPage() {
               Tham gia cùng hàng nghìn du khách đang sử dụng TravelViet để lên kế hoạch
               cho những chuyến đi đáng nhớ
             </p>
-            <Button asChild size="lg" className="btn-hero text-lg px-8">
-              <Link to={user ? '/dashboard' : '/register'}>
-                Bắt Đầu Ngay
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button asChild size="lg" className="btn-hero text-lg px-8">
+                <Link to={user ? '/dashboard' : '/register'}>
+                  Bắt Đầu Ngay
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
