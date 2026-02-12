@@ -12,6 +12,7 @@ import {
   Shield
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { motion } from 'framer-motion';
 
 export default function LandingPage() {
   const { user } = useAuth();
@@ -50,7 +51,12 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden pattern-lantern">
         {/* Navigation */}
-        <nav className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-12">
+        <motion.nav
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-12"
+        >
           <div className="flex items-center gap-3">
             <img
               src="/logo.png"
@@ -79,28 +85,59 @@ export default function LandingPage() {
               </>
             )}
           </div>
-        </nav>
+        </motion.nav>
 
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-6 pt-16 pb-24 lg:pt-24 lg:pb-32">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
-              <Sparkles className="h-4 w-4" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6"
+            >
+              <motion.div
+                animate={{
+                  y: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Sparkles className="h-4 w-4" />
+              </motion.div>
               <span className="text-sm font-medium">AI-Powered Travel Planning</span>
-            </div>
+            </motion.div>
 
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="text-4xl lg:text-6xl font-bold mb-6 leading-tight"
+            >
               <span className="text-gradient">Khám Phá Việt Nam</span>
               <br />
               <span className="text-foreground">Cùng Trợ Lý AI Thông Minh</span>
-            </h1>
+            </motion.h1>
 
-            <p className="text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+            >
               TravelViet giúp bạn lên kế hoạch du lịch hoàn hảo với công nghệ AI,
               từ lịch trình chi tiết đến gợi ý địa điểm ẩn giấu và quản lý chi phí.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            >
               <Button asChild size="lg" className="btn-hero text-lg px-8">
                 <Link to={user ? '/dashboard' : '/register'}>
                   {user ? 'Vào Dashboard' : 'Bắt Đầu Miễn Phí'}
@@ -112,23 +149,57 @@ export default function LandingPage() {
                   Khám Phá Lịch Trình
                 </Link>
               </Button>
-            </div>
+            </motion.div>
 
             {/* Stats */}
-            <div className="flex justify-center gap-8 lg:gap-16">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.6 }}
+              className="flex justify-center gap-8 lg:gap-16"
+            >
               {stats.map((stat, index) => (
-                <div key={index} className="text-center">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                  className="text-center"
+                >
                   <p className="text-3xl lg:text-4xl font-bold text-gradient">{stat.value}</p>
                   <p className="text-sm text-muted-foreground">{stat.label}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+          className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"
+        />
       </section>
 
       {/* Features Section */}
