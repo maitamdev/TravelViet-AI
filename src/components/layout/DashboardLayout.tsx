@@ -8,12 +8,15 @@ import {
   LogOut,
   Menu,
   X,
-  Plane
+  Plane,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
+import { useTheme } from '@/hooks/useTheme';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -36,6 +39,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { profile, signOut } = useAuth();
+  const { resolvedTheme, toggleTheme } = useTheme();
 
   const handleSignOut = async () => {
     await signOut();
@@ -166,6 +170,19 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 <Settings className="h-4 w-4" />
                 <span className="text-sm">Cài đặt</span>
               </Link>
+              <button
+                onClick={toggleTheme}
+                className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-accent transition-colors"
+              >
+                {resolvedTheme === 'dark' ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+                <span className="text-sm">
+                  {resolvedTheme === 'dark' ? 'Chế độ sáng' : 'Chế độ tối'}
+                </span>
+              </button>
               <button
                 onClick={handleSignOut}
                 className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-sidebar-foreground hover:bg-sidebar-accent transition-colors"
