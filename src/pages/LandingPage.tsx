@@ -205,7 +205,13 @@ export default function LandingPage() {
       {/* Features Section */}
       <section className="py-20 lg:py-32 bg-muted/30">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Tính Năng <span className="text-gradient">Nổi Bật</span>
             </h2>
@@ -213,20 +219,35 @@ export default function LandingPage() {
               Công nghệ AI tiên tiến kết hợp với kiến thức địa phương sâu sắc
               để mang đến trải nghiệm du lịch hoàn hảo
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+                }}
                 className="p-6 rounded-2xl bg-card border border-border card-hover"
               >
-                <div className="icon-badge w-12 h-12 mb-4">
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                    rotate: [0, -10, 10, -10, 0]
+                  }}
+                  transition={{ duration: 0.5 }}
+                  className="icon-badge w-12 h-12 mb-4"
+                >
                   <feature.icon className="h-6 w-6 text-primary-foreground" />
-                </div>
+                </motion.div>
                 <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground">{feature.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
