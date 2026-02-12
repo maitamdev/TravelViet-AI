@@ -252,7 +252,7 @@ export default function LandingPage() {
               <span className="font-semibold">TravelViet</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              © 2024 TravelViet. AI Travel Operating System.
+              © 2025 TravelViet. AI Travel Operating System.
             </p>
           </div>
         </div>
