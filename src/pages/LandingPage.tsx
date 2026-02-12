@@ -256,11 +256,17 @@ export default function LandingPage() {
       {/* How It Works */}
       <section className="py-20 lg:py-32">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Cách <span className="text-gradient">Hoạt Động</span>
             </h2>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
@@ -280,13 +286,24 @@ export default function LandingPage() {
                 description: 'Tận hưởng chuyến du lịch với hướng dẫn chi tiết từng bước',
               },
             ].map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="text-center"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center mx-auto mb-4"
+                >
                   <span className="text-xl font-bold text-primary-foreground">{item.step}</span>
-                </div>
+                </motion.div>
                 <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -295,25 +312,44 @@ export default function LandingPage() {
       {/* Trust Signals */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-8 lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-8 lg:gap-16"
+          >
             {[
               { icon: Star, text: 'Được đánh giá 5 sao' },
               { icon: Zap, text: 'Lên kế hoạch trong 30s' },
               { icon: Shield, text: 'Bảo mật dữ liệu' },
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-3">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex items-center gap-3"
+              >
                 <item.icon className="h-5 w-5 text-primary" />
                 <span className="text-sm font-medium">{item.text}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-20 lg:py-32">
         <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center p-8 lg:p-12 rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-border">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto text-center p-8 lg:p-12 rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-border"
+          >
             <h2 className="text-2xl lg:text-3xl font-bold mb-4">
               Sẵn Sàng Khám Phá Việt Nam?
             </h2>
@@ -321,13 +357,18 @@ export default function LandingPage() {
               Tham gia cùng hàng nghìn du khách đang sử dụng TravelViet để lên kế hoạch
               cho những chuyến đi đáng nhớ
             </p>
-            <Button asChild size="lg" className="btn-hero text-lg px-8">
-              <Link to={user ? '/dashboard' : '/register'}>
-                Bắt Đầu Ngay
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button asChild size="lg" className="btn-hero text-lg px-8">
+                <Link to={user ? '/dashboard' : '/register'}>
+                  Bắt Đầu Ngay
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
