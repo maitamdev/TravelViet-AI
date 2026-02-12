@@ -11,10 +11,10 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SaveItineraryButton } from '@/components/trips/SaveItineraryButton';
-import { 
-  Send, 
-  Plus, 
-  MessageSquare, 
+import {
+  Send,
+  Plus,
+  MessageSquare,
   Sparkles,
   Loader2,
   Bot,
@@ -37,7 +37,7 @@ function ChatContent() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tripId = searchParams.get('tripId') || undefined;
   const autoplan = searchParams.get('autoplan') === 'true';
-  
+
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [hasAutoPlanned, setHasAutoPlanned] = useState(false);
@@ -46,7 +46,7 @@ function ChatContent() {
   const { data: sessions, isLoading: sessionsLoading } = useChatSessions(tripId);
   const { data: messages, isLoading: messagesLoading } = useChatMessages(activeSessionId || undefined);
   const { data: trip, isLoading: tripLoading } = useTrip(tripId);
-  
+
   const createSession = useCreateChatSession();
   const addMessage = useAddChatMessage();
   const { sendMessage, isStreaming, streamedContent } = useStreamingChat();
@@ -62,30 +62,30 @@ function ChatContent() {
   useEffect(() => {
     const triggerAutoPlan = async () => {
       if (!autoplan || hasAutoPlanned || tripLoading || !trip || sessionsLoading || isStreaming) return;
-      
+
       setHasAutoPlanned(true);
-      
+
       // Remove autoplan from URL
       searchParams.delete('autoplan');
       setSearchParams(searchParams, { replace: true });
-      
+
       // Create a new session
       const title = `Lên kế hoạch: ${trip.title}`;
       const session = await createSession.mutateAsync({ tripId, title });
       setActiveSessionId(session.id);
-      
+
       // Build the auto-plan message
       const destinations = trip.destination_provinces?.join(', ') || 'Việt Nam';
-      const dates = trip.start_date && trip.end_date 
-        ? `từ ${trip.start_date} đến ${trip.end_date}` 
-        : trip.start_date 
+      const dates = trip.start_date && trip.end_date
+        ? `từ ${trip.start_date} đến ${trip.end_date}`
+        : trip.start_date
           ? `bắt đầu từ ${trip.start_date}`
           : '';
-      const budget = trip.total_budget_vnd > 0 
-        ? `ngân sách ${trip.total_budget_vnd.toLocaleString('vi-VN')} VNĐ` 
+      const budget = trip.total_budget_vnd > 0
+        ? `ngân sách ${trip.total_budget_vnd.toLocaleString('vi-VN')} VNĐ`
         : '';
-      const travelers = trip.travelers_count > 1 
-        ? `cho ${trip.travelers_count} người` 
+      const travelers = trip.travelers_count > 1
+        ? `cho ${trip.travelers_count} người`
         : '';
 
       const planMessage = `Hãy lên lịch trình chi tiết cho chuyến đi ${destinations} ${dates} ${travelers} ${budget}. Bao gồm địa điểm tham quan, ăn uống, thời gian di chuyển và chi phí ước tính cho từng hoạt động.`.trim().replace(/\s+/g, ' ');
@@ -113,7 +113,7 @@ function ChatContent() {
     };
 
     triggerAutoPlan();
-  }, [autoplan, hasAutoPlanned, trip, tripLoading, sessionsLoading, isStreaming]);
+  }, [autoplan, hasAutoPlanned, trip, tripLoading, sessionsLoading, isStreaming, searchParams, setSearchParams, tripId, createSession, addMessage, sendMessage]);
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -128,9 +128,9 @@ function ChatContent() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isStreaming) return;
-    
+
     let sessionId = activeSessionId;
-    
+
     // Create session if none exists
     if (!sessionId) {
       const title = tripId && trip ? `Lên kế hoạch: ${trip.title}` : 'Cuộc trò chuyện mới';
@@ -244,9 +244,9 @@ function ChatContent() {
               </div>
             </div>
             {tripId && messages && messages.length > 0 && (
-              <SaveItineraryButton 
-                tripId={tripId} 
-                aiContent={messages.filter(m => m.role === 'assistant').pop()?.content || ''} 
+              <SaveItineraryButton
+                tripId={tripId}
+                aiContent={messages.filter(m => m.role === 'assistant').pop()?.content || ''}
               />
             )}
           </div>
@@ -292,7 +292,7 @@ function ChatContent() {
                 </div>
                 <h3 className="font-semibold text-lg mb-2">AI Travel Planner</h3>
                 <p className="text-muted-foreground max-w-md mb-6">
-                  Xin chào! Tôi có thể giúp bạn lên kế hoạch du lịch Việt Nam. 
+                  Xin chào! Tôi có thể giúp bạn lên kế hoạch du lịch Việt Nam.
                   Hãy cho tôi biết bạn muốn đi đâu, khi nào và ngân sách bao nhiêu.
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center">
@@ -323,13 +323,13 @@ function ChatContent() {
             <Input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
               placeholder="Nhập tin nhắn..."
               disabled={isStreaming}
               className="flex-1"
             />
-            <Button 
-              onClick={handleSendMessage} 
+            <Button
+              onClick={handleSendMessage}
               disabled={!inputValue.trim() || isStreaming}
               className="btn-hero"
             >
@@ -368,8 +368,8 @@ function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
       </div>
       <div className={cn(
         'max-w-[80%] rounded-2xl px-4 py-3',
-        isUser 
-          ? 'bg-primary text-primary-foreground' 
+        isUser
+          ? 'bg-primary text-primary-foreground'
           : 'bg-muted'
       )}>
         {isUser ? (
@@ -385,7 +385,7 @@ function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
                       if (href) {
                         // Try to open in new tab
                         const newWindow = window.open(href, '_blank', 'noopener,noreferrer');
-                        
+
                         // If blocked by iframe, copy to clipboard
                         if (!newWindow || newWindow.closed) {
                           try {
@@ -404,10 +404,10 @@ function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
                   </button>
                 ),
                 img: ({ src, alt }) => (
-                  <img 
-                    src={src} 
-                    alt={alt} 
-                    className="rounded-lg w-full max-w-md object-cover" 
+                  <img
+                    src={src}
+                    alt={alt}
+                    className="rounded-lg w-full max-w-md object-cover"
                     loading="lazy"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';

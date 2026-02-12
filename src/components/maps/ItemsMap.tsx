@@ -17,7 +17,7 @@ import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-// @ts-ignore
+// @ts-expect-error - Leaflet default icon URL workaround
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
@@ -41,20 +41,20 @@ function MapLoading({ className }: { className?: string }) {
 // Inner map component that uses useMap hook
 function ItemsMapInner({ items }: { items: TripItem[] }) {
   const map = useMap();
-  
+
   useEffect(() => {
     const itemsWithCoords = items.filter(item => item.lat && item.lng);
-    
+
     if (itemsWithCoords.length === 0) {
       map.setView(VIETNAM_CENTER, VIETNAM_ZOOM);
       return;
     }
-    
+
     if (itemsWithCoords.length === 1) {
       map.setView([itemsWithCoords[0].lat!, itemsWithCoords[0].lng!], 14);
       return;
     }
-    
+
     const bounds = L.latLngBounds(
       itemsWithCoords.map(item => [item.lat!, item.lng!] as [number, number])
     );

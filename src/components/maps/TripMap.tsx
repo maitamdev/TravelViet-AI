@@ -2,11 +2,11 @@ import { useEffect, lazy, Suspense } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMap } from 'react-leaflet';
-import { 
-  VIETNAM_CENTER, 
+import {
+  VIETNAM_CENTER,
   VIETNAM_ZOOM,
   getProvinceCoordinates,
-  getProvinceBounds 
+  getProvinceBounds
 } from '@/lib/vietnam-coordinates';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -21,7 +21,7 @@ import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-// @ts-ignore
+// @ts-expect-error - Leaflet default icon URL workaround
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
@@ -45,19 +45,19 @@ function MapLoading({ className }: { className?: string }) {
 // Inner map component that uses useMap hook
 function TripMapInner({ provinces }: { provinces: string[] }) {
   const map = useMap();
-  
+
   useEffect(() => {
     if (provinces.length === 0) {
       map.setView(VIETNAM_CENTER, VIETNAM_ZOOM);
       return;
     }
-    
+
     const bounds = getProvinceBounds(provinces);
     if (bounds) {
       map.fitBounds(bounds, { padding: [50, 50] });
     }
   }, [map, provinces]);
-  
+
   const markers = provinces
     .map(province => {
       const coords = getProvinceCoordinates(province);

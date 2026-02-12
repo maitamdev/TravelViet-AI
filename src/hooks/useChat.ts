@@ -78,25 +78,25 @@ export function useAddChatMessage() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ 
-      sessionId, 
-      role, 
-      content, 
-      metadata = {} 
-    }: { 
-      sessionId: string; 
-      role: 'user' | 'assistant' | 'system'; 
+    mutationFn: async ({
+      sessionId,
+      role,
+      content,
+      metadata = {}
+    }: {
+      sessionId: string;
+      role: 'user' | 'assistant' | 'system';
       content: string;
       metadata?: Record<string, unknown>;
     }): Promise<ChatMessage> => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data, error } = await supabase
         .from('chat_messages')
         .insert([{
           session_id: sessionId,
           role,
           content,
-          metadata: metadata as any,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          metadata: (metadata ?? null) as any,
         }])
         .select()
         .single();

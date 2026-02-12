@@ -8,11 +8,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Search, 
-  MapPin, 
-  Heart, 
-  Bookmark, 
+import {
+  Search,
+  MapPin,
+  Heart,
+  Bookmark,
   Star,
   Calendar,
   Users,
@@ -20,7 +20,27 @@ import {
 } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import type { PublicItinerary } from '@/types/database';
+import type { Profile } from '@/types/database';
+
+interface PublicItineraryWithRelations {
+  id: string;
+  trip_id: string;
+  owner_id: string;
+  title: string;
+  summary: string | null;
+  tags: string[];
+  likes_count: number;
+  saves_count: number;
+  published_at: string;
+  owner?: Pick<Profile, 'full_name' | 'avatar_url'> | null;
+  trip?: {
+    destination_provinces: string[];
+    start_date: string | null;
+    end_date: string | null;
+    travelers_count: number;
+    mode: string;
+  } | null;
+}
 
 export default function CommunityPage() {
   return (
@@ -55,27 +75,27 @@ function CommunityContent() {
 
   const filteredItineraries = useMemo(() => {
     if (!itineraries) return [];
-    
+
     return itineraries.filter(item => {
-      const matchesSearch = 
+      const matchesSearch =
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.tags?.some((tag: string) => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (item.trip as any)?.destination_provinces?.some((p: string) => 
+        item.trip?.destination_provinces?.some((p: string) =>
           p.toLowerCase().includes(searchQuery.toLowerCase())
         );
-      
+
       return matchesSearch;
     });
   }, [itineraries, searchQuery]);
 
   const sortedItineraries = useMemo(() => {
     const items = [...filteredItineraries];
-    
+
     switch (activeTab) {
       case 'popular':
         return items.sort((a, b) => (b.likes_count || 0) - (a.likes_count || 0));
       case 'recent':
-        return items.sort((a, b) => 
+        return items.sort((a, b) =>
           new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
         );
       case 'saved':
@@ -151,8 +171,8 @@ function CommunityContent() {
                   {searchQuery ? 'Không tìm thấy lịch trình' : 'Chưa có lịch trình nào'}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  {searchQuery 
-                    ? 'Thử tìm kiếm với từ khóa khác' 
+                  {searchQuery
+                    ? 'Thử tìm kiếm với từ khóa khác'
                     : 'Hãy là người đầu tiên chia sẻ lịch trình du lịch của bạn!'}
                 </p>
               </CardContent>
@@ -165,7 +185,7 @@ function CommunityContent() {
 }
 
 interface ItineraryCardProps {
-  itinerary: any; // Using any for now due to nested relations
+  itinerary: PublicItineraryWithRelations;
 }
 
 function ItineraryCard({ itinerary }: ItineraryCardProps) {

@@ -5,11 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { 
-  ArrowLeft, 
-  Calendar, 
-  MapPin, 
-  Users, 
+import {
+  ArrowLeft,
+  Calendar,
+  MapPin,
+  Users,
   Clock,
   DollarSign,
   Plane,
@@ -18,6 +18,11 @@ import {
   Share2
 } from 'lucide-react';
 import { formatVND, formatShortDateVN, TRIP_MODES, ITEM_TYPES } from '@/lib/constants';
+import type { Trip, TripDay, TripItem } from '@/types/database';
+
+interface SharedDayWithItems extends TripDay {
+  items: TripItem[];
+}
 
 export default function SharePage() {
   const { slug } = useParams<{ slug: string }>();
@@ -26,11 +31,13 @@ export default function SharePage() {
     queryKey: ['shared-trip', slug],
     queryFn: async () => {
       // First try to find by share_slug, then by trip_id (for public itineraries)
-      let { data: trip, error: tripError } = await supabase
+      const { data: slugTrip, error: tripError } = await supabase
         .from('trips')
         .select('*')
         .eq('share_slug', slug)
         .single();
+
+      let trip = slugTrip;
 
       if (tripError) {
         // Try finding by trip_id through public_itineraries
@@ -45,7 +52,7 @@ export default function SharePage() {
           .single();
 
         if (itinerary && itinerary.trip) {
-          trip = itinerary.trip as any;
+          trip = itinerary.trip as Trip;
         } else {
           throw new Error('Trip not found');
         }
@@ -140,7 +147,7 @@ export default function SharePage() {
         {/* Trip Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">{trip.title}</h1>
-          
+
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
             <span className="flex items-center gap-1">
               {mode?.icon} {mode?.label}
@@ -182,10 +189,10 @@ export default function SharePage() {
         {/* Days */}
         <section className="space-y-6">
           <h2 className="text-xl font-semibold">Lịch trình chi tiết</h2>
-          
+
           {days && days.length > 0 ? (
             <div className="space-y-6">
-              {days.map((day: any) => (
+              {days.map((day: SharedDayWithItems) => (
                 <Card key={day.id}>
                   <CardHeader className="pb-3">
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -206,7 +213,7 @@ export default function SharePage() {
                   <CardContent>
                     {day.items && day.items.length > 0 ? (
                       <div className="space-y-3">
-                        {day.items.map((item: any) => {
+                        {day.items.map((item: TripItem) => {
                           const itemType = ITEM_TYPES.find(t => t.value === item.item_type);
                           return (
                             <div key={item.id} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
