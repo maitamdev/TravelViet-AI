@@ -7,3 +7,8 @@ export function calculateDistance(lat1: number, lng1: number, lat2: number, lng2
     Math.sin(dLng / 2) * Math.sin(dLng / 2);
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
+
+export function formatDistance(km: number): string {
+  if (km < 1) return Math.round(km * 1000) + ' m';
+  return km.toFixed(1) + ' km';
+}
