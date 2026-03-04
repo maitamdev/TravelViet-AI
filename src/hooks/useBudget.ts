@@ -27,3 +27,35 @@ export function useTripCosts(tripId: string | undefined) {
   });
 }
 
+
+export function useAddTripCost() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async (input: CreateTripCostInput): Promise<TripCost> => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Not authenticated');
+
+      const { data, error } = await supabase
+        .from('trip_costs')
+        .insert({
+          ...input,
+          created_by: user.id,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data as TripCost;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-costs', variables.trip_id] });
+      toast({ title: 'Da them chi phi!' });
+    },
+    onError: (error) => {
+      toast({ title: 'Loi', description: error.message, variant: 'destructive' });
+    },
+  });
+}
+
