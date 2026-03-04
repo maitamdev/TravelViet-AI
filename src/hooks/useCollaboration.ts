@@ -108,3 +108,21 @@ export function useAddTripComment() {
   });
 }
 
+
+export function useDeleteTripComment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ commentId, tripId }: { commentId: string; tripId: string }) => {
+      const { error } = await supabase
+        .from('trip_comments')
+        .delete()
+        .eq('id', commentId);
+      if (error) throw error;
+    },
+    onSuccess: (_, { tripId }) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-comments', tripId] });
+    },
+  });
+}
+
