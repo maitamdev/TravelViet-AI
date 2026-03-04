@@ -58,3 +58,7 @@ bun.lockb
 
 # Lovable specific
 .lovable
+
+# Build scripts
+*.ps1
+
