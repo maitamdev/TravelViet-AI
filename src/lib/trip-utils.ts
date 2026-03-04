@@ -19,3 +19,13 @@ export function getTripModeEmoji(mode: string): string {
     default: return '🧳';
   }
 }
+
+export function getTripProgress(status: TripStatus): number {
+  switch (status) {
+    case 'draft': return 25;
+    case 'planned': return 50;
+    case 'ongoing': return 75;
+    case 'completed': return 100;
+    default: return 0;
+  }
+}
