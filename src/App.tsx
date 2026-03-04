@@ -19,6 +19,10 @@ const ChatPage = lazy(() => import("./pages/dashboard/ChatPage"));
 const CommunityPage = lazy(() => import("./pages/dashboard/CommunityPage"));
 const SettingsPage = lazy(() => import("./pages/dashboard/SettingsPage"));
 const SharePage = lazy(() => import("./pages/SharePage"));
+const ProfilePage = lazy(() => import("./pages/dashboard/ProfilePage"));
+const FavoritesPage = lazy(() => import("./pages/dashboard/FavoritesPage"));
+const ExplorePage = lazy(() => import("./pages/dashboard/ExplorePage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -64,3 +68,4 @@ const App = () => (
 );
 
 export default App;
+
