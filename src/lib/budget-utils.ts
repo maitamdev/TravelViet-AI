@@ -15,3 +15,10 @@ export function getBudgetStatus(spent: number, total: number): 'safe' | 'warning
   if (ratio < 0.9) return 'warning';
   return 'danger';
 }
+
+export function formatBudgetShort(amount: number): string {
+  if (amount >= 1000000000) return (amount / 1000000000).toFixed(1) + ' ty';
+  if (amount >= 1000000) return (amount / 1000000).toFixed(1) + ' tr';
+  if (amount >= 1000) return (amount / 1000).toFixed(0) + 'k';
+  return amount.toString();
+}
