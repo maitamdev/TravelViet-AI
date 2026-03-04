@@ -84,56 +84,100 @@ export function useAuth() {
   const signUp = async (email: string, password: string, fullName?: string) => {
     setState(prev => ({ ...prev, loading: true, error: null }));
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: window.location.origin,
-        data: {
-          full_name: fullName,
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: window.location.origin,
+          data: {
+            full_name: fullName,
+          },
         },
-      },
-    });
+      });
 
-    setState(prev => ({ ...prev, loading: false, error }));
-    return { data, error };
+      setState(prev => ({ ...prev, loading: false, error }));
+      return { data, error };
+    } catch (err) {
+      const networkError = {
+        message: 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối mạng và thử lại.',
+        status: 0,
+        name: 'NetworkError',
+      } as AuthError;
+      setState(prev => ({ ...prev, loading: false, error: networkError }));
+      return { data: { user: null, session: null }, error: networkError };
+    }
   };
 
   const signIn = async (email: string, password: string) => {
     setState(prev => ({ ...prev, loading: true, error: null }));
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    setState(prev => ({ ...prev, loading: false, error }));
-    return { data, error };
+      setState(prev => ({ ...prev, loading: false, error }));
+      return { data, error };
+    } catch (err) {
+      const networkError = {
+        message: 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối mạng và thử lại.',
+        status: 0,
+        name: 'NetworkError',
+      } as AuthError;
+      setState(prev => ({ ...prev, loading: false, error: networkError }));
+      return { data: { user: null, session: null }, error: networkError };
+    }
   };
 
   const signOut = async () => {
     setState(prev => ({ ...prev, loading: true }));
 
-    const { error } = await supabase.auth.signOut();
+    try {
+      const { error } = await supabase.auth.signOut();
 
-    setState(prev => ({
-      ...prev,
-      user: null,
-      session: null,
-      profile: null,
-      loading: false,
-      error,
-    }));
+      setState(prev => ({
+        ...prev,
+        user: null,
+        session: null,
+        profile: null,
+        loading: false,
+        error,
+      }));
 
-    return { error };
+      return { error };
+    } catch (err) {
+      // Even if signOut fails due to network, clear local state
+      setState(prev => ({
+        ...prev,
+        user: null,
+        session: null,
+        profile: null,
+        loading: false,
+        error: null,
+      }));
+      return { error: null };
+    }
   };
 
   const resetPassword = async (email: string) => {
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`,
-    });
+    try {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/reset-password`,
+      });
 
-    return { data, error };
+      return { data, error };
+    } catch (err) {
+      return {
+        data: null,
+        error: {
+          message: 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối mạng và thử lại.',
+          status: 0,
+          name: 'NetworkError',
+        } as AuthError,
+      };
+    }
   };
 
   const updateProfile = async (updates: Partial<Profile>) => {

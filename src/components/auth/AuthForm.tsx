@@ -59,6 +59,25 @@ export function AuthForm({ mode }: AuthFormProps) {
     defaultValues: { email: '' },
   });
 
+  // Map English error messages to Vietnamese
+  const getErrorMessage = (message: string): string => {
+    const errorMap: Record<string, string> = {
+      'Failed to fetch': 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối mạng và thử lại.',
+      'Invalid login credentials': 'Email hoặc mật khẩu không đúng.',
+      'User already registered': 'Email này đã được đăng ký. Vui lòng đăng nhập hoặc sử dụng email khác.',
+      'Email not confirmed': 'Email chưa được xác nhận. Vui lòng kiểm tra hộp thư.',
+      'Invalid email or password': 'Email hoặc mật khẩu không hợp lệ.',
+      'Signup requires a valid password': 'Mật khẩu không hợp lệ.',
+      'Email rate limit exceeded': 'Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau.',
+      'For security purposes, you can only request this once every 60 seconds': 'Vui lòng đợi 60 giây trước khi thử lại.',
+    };
+
+    for (const [key, value] of Object.entries(errorMap)) {
+      if (message.includes(key)) return value;
+    }
+    return message;
+  };
+
   const handleLogin = async (data: LoginFormData) => {
     setIsSubmitting(true);
     const { error } = await signIn(data.email, data.password);
@@ -67,9 +86,7 @@ export function AuthForm({ mode }: AuthFormProps) {
     if (error) {
       toast({
         title: 'Đăng nhập thất bại',
-        description: error.message === 'Invalid login credentials'
-          ? 'Email hoặc mật khẩu không đúng'
-          : error.message,
+        description: getErrorMessage(error.message),
         variant: 'destructive',
       });
     } else {
@@ -88,7 +105,7 @@ export function AuthForm({ mode }: AuthFormProps) {
     if (error) {
       toast({
         title: 'Đăng ký thất bại',
-        description: error.message,
+        description: getErrorMessage(error.message),
         variant: 'destructive',
       });
     } else {
@@ -107,7 +124,7 @@ export function AuthForm({ mode }: AuthFormProps) {
     if (error) {
       toast({
         title: 'Gửi email thất bại',
-        description: error.message,
+        description: getErrorMessage(error.message),
         variant: 'destructive',
       });
     } else {
