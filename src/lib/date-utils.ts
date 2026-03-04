@@ -7,3 +7,7 @@ export function getDaysUntil(dateStr: string): number {
 export function isDateInPast(dateStr: string): boolean {
   return new Date(dateStr) < new Date();
 }
+
+export function isDateInFuture(dateStr: string): boolean {
+  return new Date(dateStr) > new Date();
+}
