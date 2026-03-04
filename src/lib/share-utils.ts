@@ -16,3 +16,11 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     return true;
   }
 }
+
+export function shareViaWebShare(data: { title: string; text: string; url: string }): boolean {
+  if (navigator.share) {
+    navigator.share(data).catch(() => {});
+    return true;
+  }
+  return false;
+}
