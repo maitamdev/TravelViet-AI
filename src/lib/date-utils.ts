@@ -11,3 +11,14 @@ export function isDateInPast(dateStr: string): boolean {
 export function isDateInFuture(dateStr: string): boolean {
   return new Date(dateStr) > new Date();
 }
+
+export function getDateRange(startDate: string, endDate: string): string[] {
+  const dates: string[] = [];
+  const current = new Date(startDate);
+  const end = new Date(endDate);
+  while (current <= end) {
+    dates.push(current.toISOString().split('T')[0]);
+    current.setDate(current.getDate() + 1);
+  }
+  return dates;
+}
