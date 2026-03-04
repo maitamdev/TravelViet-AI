@@ -1,0 +1,15 @@
+export const SUCCESS_MESSAGES = {
+  TRIP_CREATED: 'Da tao chuyen di thanh cong!',
+  TRIP_UPDATED: 'Da cap nhat chuyen di.',
+  TRIP_DELETED: 'Da xoa chuyen di.',
+  COST_ADDED: 'Da them chi phi.',
+  COST_DELETED: 'Da xoa chi phi.',
+  COMMENT_ADDED: 'Da them binh luan.',
+  TASK_ADDED: 'Da them cong viec.',
+  MEMBER_ADDED: 'Da them thanh vien.',
+  PROFILE_UPDATED: 'Da cap nhat ho so.',
+  BOOKMARK_ADDED: 'Da luu lich trinh.',
+  BOOKMARK_REMOVED: 'Da bo luu lich trinh.',
+  REPORT_SENT: 'Da gui bao cao.',
+  LINK_COPIED: 'Da sao chep link!',
+} as const;
