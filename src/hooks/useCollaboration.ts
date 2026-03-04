@@ -166,3 +166,24 @@ export function useAddTripTask() {
   });
 }
 
+
+export function useUpdateTripTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ taskId, tripId, updates }: { taskId: string; tripId: string; updates: Partial<TripTask> }) => {
+      const { data, error } = await supabase
+        .from('trip_tasks')
+        .update(updates)
+        .eq('id', taskId)
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (_, { tripId }) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-tasks', tripId] });
+    },
+  });
+}
+
