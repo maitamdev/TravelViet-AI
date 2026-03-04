@@ -22,6 +22,8 @@ const SharePage = lazy(() => import("./pages/SharePage"));
 const ProfilePage = lazy(() => import("./pages/dashboard/ProfilePage"));
 const FavoritesPage = lazy(() => import("./pages/dashboard/FavoritesPage"));
 const ExplorePage = lazy(() => import("./pages/dashboard/ExplorePage"));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -62,7 +64,7 @@ const App = () => (
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
             <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
             <Route path="/explore" element={<ProtectedRoute><ExplorePage /></ProtectedRoute>} />
-            <Route path="/about" element={<AboutPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />`n            <Route path="/terms" element={<TermsPage />} />`n            <Route path="/about" element={<AboutPage />} />
 
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
@@ -74,5 +76,6 @@ const App = () => (
 );
 
 export default App;
+
 
 
