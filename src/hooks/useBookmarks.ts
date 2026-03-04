@@ -52,3 +52,20 @@ export function useToggleBookmark() {
   });
 }
 
+
+export function useUserBookmarkIds() {
+  return useQuery({
+    queryKey: ['user-bookmark-ids'],
+    queryFn: async (): Promise<string[]> => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return [];
+      const { data, error } = await supabase
+        .from('itinerary_bookmarks')
+        .select('public_itinerary_id')
+        .eq('user_id', user.id);
+      if (error) throw error;
+      return data.map(b => b.public_itinerary_id);
+    },
+  });
+}
+
