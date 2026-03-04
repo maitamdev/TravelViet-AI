@@ -82,3 +82,29 @@ export function useDeleteTripCost() {
   });
 }
 
+
+export function useBudgetSummary(tripId: string | undefined) {
+  const { data: costs } = useTripCosts(tripId);
+
+  const summary = {
+    total: 0,
+    transport: 0,
+    stay: 0,
+    food: 0,
+    tickets: 0,
+    other: 0,
+  };
+
+  if (costs) {
+    costs.forEach(cost => {
+      summary.total += Number(cost.amount_vnd);
+      const cat = cost.category as keyof typeof summary;
+      if (cat in summary) {
+        summary[cat] += Number(cost.amount_vnd);
+      }
+    });
+  }
+
+  return { costs, summary };
+}
+
