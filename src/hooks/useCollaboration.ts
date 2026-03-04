@@ -86,3 +86,25 @@ export function useTripComments(tripId: string | undefined) {
   });
 }
 
+
+export function useAddTripComment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ tripId, content }: { tripId: string; content: string }) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Not authenticated');
+      const { data, error } = await supabase
+        .from('trip_comments')
+        .insert({ trip_id: tripId, user_id: user.id, content })
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (_, { tripId }) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-comments', tripId] });
+    },
+  });
+}
+
