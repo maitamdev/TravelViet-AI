@@ -1,0 +1,5 @@
+.member-item { transition: background 0.2s ease; border-radius: 0.5rem; padding: 0.5rem; }
+.member-item:hover { background: hsl(var(--muted)); }
+.comment-bubble { background: hsl(var(--muted) / 0.5); border-radius: 0.75rem; padding: 0.75rem 1rem; }
+.task-item { transition: all 0.2s ease; }
+.task-item.completed { opacity: 0.6; }
