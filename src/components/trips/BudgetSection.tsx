@@ -9,3 +9,8 @@ import { Trash2, Plus, DollarSign } from 'lucide-react';
 import { formatVND, COST_CATEGORIES } from '@/lib/constants';
 import type { CostCategory } from '@/types/database';
 
+interface BudgetSectionProps {
+  tripId: string;
+  totalBudget: number;
+}
+
