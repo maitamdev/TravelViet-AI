@@ -1,0 +1,8 @@
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  body { background: white; color: black; }
+  .sidebar, .header { display: none; }
+  .trip-card, .day-card { break-inside: avoid; }
+  a { text-decoration: none; color: inherit; }
+}
