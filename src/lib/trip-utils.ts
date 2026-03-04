@@ -9,3 +9,13 @@ export function getTripStatusColor(status: TripStatus): string {
     default: return 'text-gray-500 bg-gray-100';
   }
 }
+
+export function getTripModeEmoji(mode: string): string {
+  switch (mode) {
+    case 'solo': return '🧳';
+    case 'couple': return '💑';
+    case 'family': return '👨‍👩‍👧‍👦';
+    case 'friends': return '👥';
+    default: return '🧳';
+  }
+}
