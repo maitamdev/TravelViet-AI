@@ -144,3 +144,25 @@ export function useTripTasks(tripId: string | undefined) {
   });
 }
 
+
+export function useAddTripTask() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async ({ tripId, title, assigneeId }: { tripId: string; title: string; assigneeId?: string }) => {
+      const { data, error } = await supabase
+        .from('trip_tasks')
+        .insert({ trip_id: tripId, title, assignee_id: assigneeId || null })
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (_, { tripId }) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-tasks', tripId] });
+      toast({ title: 'Da them cong viec!' });
+    },
+  });
+}
+
