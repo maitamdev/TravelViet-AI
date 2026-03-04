@@ -1,91 +1,71 @@
-# Development Guide
+# TravelViet AI - Development Guide
+
+## Prerequisites
+
+- Node.js 18+
+- npm or bun
+- Supabase account
 
 ## Getting Started
 
-### Prerequisites
-- Node.js 18 or higher
-- npm or yarn
-- Git
-
-### Environment Setup
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Copy `.env.example` to `.env`
-4. Configure your environment variables
-5. Run `npm run dev`
-
-## Development Workflow
-
-### Branch Naming
-- `feature/` - New features
-- `fix/` - Bug fixes
-- `docs/` - Documentation updates
-- `chore/` - Maintenance tasks
-
-### Commit Messages
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
-- `feat:` - New feature
-- `fix:` - Bug fix
-- `docs:` - Documentation
-- `style:` - Formatting
-- `refactor:` - Code restructuring
-- `test:` - Adding tests
-- `chore:` - Maintenance
-
-### Code Style
-- Use TypeScript for type safety
-- Follow ESLint and Prettier configurations
-- Write meaningful variable names
-- Add comments for complex logic
-
-### Testing
 ```bash
-npm run test        # Run tests
-npm run test:watch  # Watch mode
-npm run build       # Production build
+npm install
+cp .env.example .env
+npm run dev
 ```
 
 ## Project Structure
 
 ```
 src/
-├── components/     # React components
-├── pages/          # Page components
-├── hooks/          # Custom hooks
-├── lib/            # Utilities
-└── integrations/   # Third-party integrations
+├── components/         # React components
+│   ├── auth/           # Authentication
+│   ├── layout/         # Layout components
+│   ├── maps/           # Map components
+│   ├── trips/          # Trip-related components
+│   └── ui/             # shadcn/ui components
+├── hooks/              # Custom hooks
+│   ├── useAuth.ts      # Authentication
+│   ├── useTrips.ts     # Trip CRUD
+│   ├── useChat.ts      # AI Chat
+│   ├── useBudget.ts    # Budget tracking
+│   ├── useBookmarks.ts # Bookmarks
+│   ├── useCollaboration.ts # Collaboration
+│   ├── useLikes.ts     # Likes
+│   ├── useVotes.ts     # Votes
+│   ├── useReports.ts   # Reports
+│   └── usePlanVersions.ts # AI Plan versions
+├── lib/                # Utilities
+│   ├── constants.ts    # App constants
+│   ├── validation.ts   # Form validation
+│   ├── date-utils.ts   # Date helpers
+│   ├── budget-utils.ts # Budget helpers
+│   ├── trip-utils.ts   # Trip helpers
+│   ├── map-utils.ts    # Map helpers
+│   └── share-utils.ts  # Share helpers
+├── pages/              # Page components
+│   ├── auth/           # Auth pages
+│   └── dashboard/      # Dashboard pages
+├── types/              # TypeScript types
+└── test/               # Tests
 ```
 
-## Useful Commands
+## Available Scripts
 
-```bash
-npm run dev         # Start dev server
-npm run build       # Build for production
-npm run preview     # Preview production build
-npm run lint        # Run linter
-npm run format      # Format code
-```
+- `npm run dev` - Development server
+- `npm run build` - Production build
+- `npm run test` - Run tests
+- `npm run lint` - Lint code
 
-## Troubleshooting
+## Features
 
-### Common Issues
-
-**Port already in use:**
-```bash
-# Kill process on port 5173
-npx kill-port 5173
-```
-
-**Dependencies out of sync:**
-```bash
-rm -rf node_modules package-lock.json
-npm install
-```
-
-## Resources
-
-- [React Documentation](https://react.dev)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Supabase Docs](https://supabase.com/docs)
-- [TailwindCSS](https://tailwindcss.com/docs)
+1. AI Trip Planning (Groq API)
+2. Trip Management (CRUD)
+3. Budget Tracking
+4. Community Sharing
+5. Collaboration (Members, Comments, Tasks, Votes)
+6. Destination Explorer
+7. Bookmarks & Favorites
+8. Profile Management
+9. Notifications
+10. Maps (Leaflet)
