@@ -17,3 +17,38 @@ export function useBookmarks() {
   });
 }
 
+
+export function useToggleBookmark() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async ({ itineraryId, isBookmarked }: { itineraryId: string; isBookmarked: boolean }) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Not authenticated');
+
+      if (isBookmarked) {
+        const { error } = await supabase
+          .from('itinerary_bookmarks')
+          .delete()
+          .eq('public_itinerary_id', itineraryId)
+          .eq('user_id', user.id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from('itinerary_bookmarks')
+          .insert({ public_itinerary_id: itineraryId, user_id: user.id });
+        if (error) throw error;
+      }
+    },
+    onSuccess: (_, { isBookmarked }) => {
+      queryClient.invalidateQueries({ queryKey: ['bookmarks'] });
+      queryClient.invalidateQueries({ queryKey: ['public-itineraries'] });
+      toast({ title: isBookmarked ? 'Da bo luu' : 'Da luu lich trinh!' });
+    },
+    onError: (error) => {
+      toast({ title: 'Loi', description: error.message, variant: 'destructive' });
+    },
+  });
+}
+
