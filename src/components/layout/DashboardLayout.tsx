@@ -1,5 +1,9 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
+  Compass,
+  Heart, Link, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Compass,
+  Heart,
   LayoutDashboard,
   Map,
   MessageSquare,
@@ -12,13 +16,27 @@ import {
   Moon,
   Sun,
 } from 'lucide-react';
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
-import { useTheme } from '@/hooks/useTheme';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
+  Compass,
+  Heart, useState } from 'react';
+import {
+  Compass,
+  Heart, cn } from '@/lib/utils';
+import {
+  Compass,
+  Heart, Button } from '@/components/ui/button';
+import {
+  Compass,
+  Heart, useAuth } from '@/hooks/useAuth';
+import {
+  Compass,
+  Heart, useTheme } from '@/hooks/useTheme';
+import {
+  Compass,
+  Heart, Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Compass,
+  Heart,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -210,3 +228,4 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
