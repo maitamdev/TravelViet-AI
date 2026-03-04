@@ -1,0 +1,8 @@
+.container-narrow { max-width: 48rem; margin: 0 auto; }
+.container-wide { max-width: 80rem; margin: 0 auto; }
+@media (max-width: 640px) {
+  .mobile-full { width: 100%; }
+  .mobile-stack { flex-direction: column; }
+  .mobile-hide { display: none; }
+}
+@media (min-width: 1024px) { .desktop-hide { display: none; } }
