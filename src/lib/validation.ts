@@ -84,3 +84,16 @@ export const validators = {
         return 'strong';
     },
 };
+
+export function validateBudget(amount: number): string | null {
+  if (amount < 0) return 'Ngan sach khong duoc am';
+  if (amount > 100000000000) return 'Ngan sach qua lon';
+  return null;
+}
+
+export function validateTripDates(start: string, end: string): string | null {
+  if (new Date(end) < new Date(start)) return 'Ngay ket thuc phai sau ngay bat dau';
+  const days = Math.ceil((new Date(end).getTime() - new Date(start).getTime()) / 86400000) + 1;
+  if (days > 30) return 'Chuyen di toi da 30 ngay';
+  return null;
+}
