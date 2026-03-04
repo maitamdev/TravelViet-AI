@@ -58,6 +58,12 @@ const App = () => (
             <Route path="/community" element={<ProtectedRoute><CommunityPage /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
 
+            {/* New pages */}
+            <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+            <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
+            <Route path="/explore" element={<ProtectedRoute><ExplorePage /></ProtectedRoute>} />
+            <Route path="/about" element={<AboutPage />} />
+
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -68,4 +74,5 @@ const App = () => (
 );
 
 export default App;
+
 
