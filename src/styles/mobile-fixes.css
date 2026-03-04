@@ -1,0 +1,7 @@
+@media (max-width: 640px) {
+  .sidebar { width: 100%; position: fixed; z-index: 50; }
+  .dashboard-content { padding: 1rem; }
+  .trip-card-grid { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .budget-chart { max-width: 100%; overflow-x: auto; }
+}
