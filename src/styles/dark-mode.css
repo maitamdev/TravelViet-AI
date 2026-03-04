@@ -1,0 +1,4 @@
+.dark .glass-card { background: rgba(30,30,30,0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); }
+.dark .glow-primary { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+.dark .elevated { box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.dark .subtle-border { border-color: rgba(255,255,255,0.08); }
