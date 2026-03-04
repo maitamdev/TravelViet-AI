@@ -187,3 +187,21 @@ export function useUpdateTripTask() {
   });
 }
 
+
+export function useDeleteTripTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ taskId, tripId }: { taskId: string; tripId: string }) => {
+      const { error } = await supabase
+        .from('trip_tasks')
+        .delete()
+        .eq('id', taskId);
+      if (error) throw error;
+    },
+    onSuccess: (_, { tripId }) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-tasks', tripId] });
+    },
+  });
+}
+
