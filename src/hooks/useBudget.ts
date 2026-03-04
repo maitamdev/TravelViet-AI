@@ -59,3 +59,26 @@ export function useAddTripCost() {
   });
 }
 
+
+export function useDeleteTripCost() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async ({ costId, tripId }: { costId: string; tripId: string }): Promise<void> => {
+      const { error } = await supabase
+        .from('trip_costs')
+        .delete()
+        .eq('id', costId);
+      if (error) throw error;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-costs', variables.tripId] });
+      toast({ title: 'Da xoa chi phi' });
+    },
+    onError: (error) => {
+      toast({ title: 'Loi xoa chi phi', description: error.message, variant: 'destructive' });
+    },
+  });
+}
+
