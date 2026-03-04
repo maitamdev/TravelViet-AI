@@ -20,3 +20,28 @@ export function useTripMembers(tripId: string | undefined) {
   });
 }
 
+
+export function useAddTripMember() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async ({ tripId, userId, role = 'member' }: { tripId: string; userId: string; role?: string }) => {
+      const { data, error } = await supabase
+        .from('trip_members')
+        .insert({ trip_id: tripId, user_id: userId, role })
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: (_, { tripId }) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-members', tripId] });
+      toast({ title: 'Da them thanh vien!' });
+    },
+    onError: (error) => {
+      toast({ title: 'Loi', description: error.message, variant: 'destructive' });
+    },
+  });
+}
+
