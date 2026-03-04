@@ -29,3 +29,11 @@ export function getTripProgress(status: TripStatus): number {
     default: return 0;
   }
 }
+
+export function sortTripsByDate(trips: Array<{ start_date: string | null; created_at: string }>): typeof trips {
+  return [...trips].sort((a, b) => {
+    const dateA = a.start_date || a.created_at;
+    const dateB = b.start_date || b.created_at;
+    return new Date(dateB).getTime() - new Date(dateA).getTime();
+  });
+}
