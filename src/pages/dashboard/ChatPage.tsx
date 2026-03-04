@@ -1,18 +1,32 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useRef, useEffect } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AuthGuard } from '@/components/auth/AuthGuard';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useChatSessions, useChatMessages, useCreateChatSession, useAddChatMessage, useStreamingChat } from '@/hooks/useChat';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTrip } from '@/hooks/useTrips';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Input } from '@/components/ui/input';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SaveItineraryButton } from '@/components/trips/SaveItineraryButton';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   Send,
+  Trash2,
   Plus,
   MessageSquare,
   Sparkles,
@@ -20,6 +34,7 @@ import {
   Bot,
   User
 } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
 import type { ChatMessage } from '@/types/database';
 
@@ -427,3 +442,4 @@ function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
     </div>
   );
 }
+
