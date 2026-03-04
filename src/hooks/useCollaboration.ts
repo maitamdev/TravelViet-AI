@@ -126,3 +126,21 @@ export function useDeleteTripComment() {
   });
 }
 
+
+export function useTripTasks(tripId: string | undefined) {
+  return useQuery({
+    queryKey: ['trip-tasks', tripId],
+    queryFn: async () => {
+      if (!tripId) return [];
+      const { data, error } = await supabase
+        .from('trip_tasks')
+        .select('*, assignee:profiles(full_name, avatar_url)')
+        .eq('trip_id', tripId)
+        .order('created_at', { ascending: true });
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!tripId,
+  });
+}
+
