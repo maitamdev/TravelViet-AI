@@ -45,3 +45,26 @@ export function useAddTripMember() {
   });
 }
 
+
+export function useRemoveTripMember() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: async ({ memberId, tripId }: { memberId: string; tripId: string }) => {
+      const { error } = await supabase
+        .from('trip_members')
+        .delete()
+        .eq('id', memberId);
+      if (error) throw error;
+    },
+    onSuccess: (_, { tripId }) => {
+      queryClient.invalidateQueries({ queryKey: ['trip-members', tripId] });
+      toast({ title: 'Da xoa thanh vien' });
+    },
+    onError: (error) => {
+      toast({ title: 'Loi', description: error.message, variant: 'destructive' });
+    },
+  });
+}
+
