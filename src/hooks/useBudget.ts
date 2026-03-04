@@ -10,3 +10,20 @@ export interface CreateTripCostInput {
   note?: string;
 }
 
+export function useTripCosts(tripId: string | undefined) {
+  return useQuery({
+    queryKey: ['trip-costs', tripId],
+    queryFn: async (): Promise<TripCost[]> => {
+      if (!tripId) return [];
+      const { data, error } = await supabase
+        .from('trip_costs')
+        .select('*')
+        .eq('trip_id', tripId)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      return data as TripCost[];
+    },
+    enabled: !!tripId,
+  });
+}
+
