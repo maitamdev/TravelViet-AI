@@ -37,3 +37,7 @@ export function sortTripsByDate(trips: Array<{ start_date: string | null; create
     return new Date(dateB).getTime() - new Date(dateA).getTime();
   });
 }
+
+export function filterTripsByProvince(trips: Array<{ destination_provinces: string[] }>, province: string): typeof trips {
+  return trips.filter(t => t.destination_provinces.some(p => p.toLowerCase().includes(province.toLowerCase())));
+}
