@@ -19,3 +19,13 @@ const FAQ_DATA = [
   { q: 'Lam sao de lien he ho tro?', a: 'Ban co the gui email den maitamit062005@gmail.com hoac tao issue tren GitHub.' },
 ];
 
+
+const TECH_STACK = [
+  { name: 'React + TypeScript', desc: 'Frontend framework', icon: Code },
+  { name: 'Vite', desc: 'Build tool', icon: Sparkles },
+  { name: 'Tailwind CSS + shadcn/ui', desc: 'Styling', icon: Heart },
+  { name: 'Supabase', desc: 'Backend & Auth', icon: Shield },
+  { name: 'Groq API (Llama 3.3)', desc: 'AI Engine', icon: MessageSquare },
+  { name: 'Leaflet', desc: 'Maps', icon: Map },
+];
+
