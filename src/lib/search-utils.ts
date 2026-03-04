@@ -17,3 +17,8 @@ export function highlightMatch(text: string, query: string): string {
   const regex = new RegExp("(" + escaped + ")", "gi");
   return text.replace(regex, "<mark>$1</mark>");
 }
+
+
+export function normalizeVietnamese(str: string): string {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
