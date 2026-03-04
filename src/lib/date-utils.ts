@@ -3,3 +3,7 @@ export function getDaysUntil(dateStr: string): number {
   const now = new Date();
   return Math.ceil((target.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 }
+
+export function isDateInPast(dateStr: string): boolean {
+  return new Date(dateStr) < new Date();
+}
