@@ -1,0 +1,3 @@
+.province-card { transition: all 0.3s ease; border: 1px solid transparent; }
+.province-card:hover { border-color: hsl(var(--primary) / 0.3); background: hsl(var(--primary) / 0.05); }
+.province-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
