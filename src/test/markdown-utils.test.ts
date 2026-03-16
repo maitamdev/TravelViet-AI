@@ -1,0 +1,7 @@
+import { describe, it, expect } from 'vitest';
+import { extractHeadings, extractLinks, countWords, estimateReadingTime, stripMarkdown } from '@/lib/markdown-utils';
+describe('extractHeadings', () => { it('should extract headings', () => { const md = '# Title\n## Subtitle\n### Section'; const h = extractHeadings(md); expect(h).toHaveLength(3); expect(h[0].level).toBe(1); expect(h[0].text).toBe('Title'); }); });
+describe('extractLinks', () => { it('should extract links', () => { const md = 'Visit [Google](https://google.com) and [GitHub](https://github.com)'; const links = extractLinks(md); expect(links).toHaveLength(2); expect(links[0].text).toBe('Google'); }); });
+describe('countWords', () => { it('should count words excluding markdown', () => { expect(countWords('Hello world **bold** _italic_')).toBeGreaterThan(2); }); });
+describe('estimateReadingTime', () => { it('should estimate reading time', () => { const longText = Array(400).fill('word').join(' '); expect(estimateReadingTime(longText)).toBe(2); }); it('should return at least 1 minute', () => { expect(estimateReadingTime('short')).toBe(1); }); });
+describe('stripMarkdown', () => { it('should remove markdown formatting', () => { expect(stripMarkdown('**bold** and _italic_')).toContain('bold'); expect(stripMarkdown('**bold**')).not.toContain('**'); }); });
