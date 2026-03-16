@@ -1,0 +1,4 @@
+import { describe, it, expect } from 'vitest';
+import { measurePerformance, PerformanceBudget } from '@/lib/perf-monitoring';
+describe('measurePerformance', () => { it('should return duration', () => { const d = measurePerformance('test', () => { let x = 0; for (let i = 0; i < 1000; i++) x += i; }); expect(d).toBeGreaterThanOrEqual(0); expect(typeof d).toBe('number'); }); });
+describe('PerformanceBudget', () => { it('should pass within budget', () => { const pb = new PerformanceBudget(); pb.setBudget('render', 100); expect(pb.check('render', 50)).toBe(true); }); it('should fail over budget', () => { const pb = new PerformanceBudget(); pb.setBudget('render', 16); expect(pb.check('render', 32)).toBe(false); }); it('should pass if no budget set', () => { const pb = new PerformanceBudget(); expect(pb.check('unknown', 999)).toBe(true); }); });
