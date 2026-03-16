@@ -1,0 +1,6 @@
+import { describe, it, expect } from 'vitest';
+import { getCalendarWeeks, toLocalDateString, parseLocalDate, getDateDiff } from '@/lib/date-utils';
+describe('getCalendarWeeks', () => { it('should return 5-6 weeks', () => { const weeks = getCalendarWeeks(2026, 2); expect(weeks.length).toBeGreaterThanOrEqual(4); expect(weeks.length).toBeLessThanOrEqual(6); expect(weeks[0].length).toBe(7); }); });
+describe('toLocalDateString', () => { it('should format YYYY-MM-DD', () => { expect(toLocalDateString(new Date(2026, 2, 16))).toBe('2026-03-16'); expect(toLocalDateString(new Date(2026, 0, 5))).toBe('2026-01-05'); }); });
+describe('parseLocalDate', () => { it('should parse date string', () => { const d = parseLocalDate('2026-03-16'); expect(d.getFullYear()).toBe(2026); expect(d.getMonth()).toBe(2); expect(d.getDate()).toBe(16); }); });
+describe('getDateDiff', () => { it('should calc diff', () => { const d = getDateDiff(new Date('2026-01-01'), new Date('2026-01-03')); expect(d.days).toBe(2); expect(d.hours).toBe(0); }); });
