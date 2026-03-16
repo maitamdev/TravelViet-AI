@@ -97,3 +97,19 @@ export function validateTripDates(start: string, end: string): string | null {
   if (days > 30) return 'Chuyen di toi da 30 ngay';
   return null;
 }
+
+export const tripValidation = {
+  title: (v: string) => { if (!v.trim()) return 'Tên chuyến đi là bắt buộc'; if (v.length < 3) return 'Tối thiểu 3 ký tự'; if (v.length > 100) return 'Tối đa 100 ký tự'; return null; },
+  destination: (v: string[]) => { if (!v.length) return 'Chọn ít nhất 1 điểm đến'; if (v.length > 10) return 'Tối đa 10 điểm đến'; return null; },
+  travelers: (v: number) => { if (v < 1) return 'Ít nhất 1 người'; if (v > 50) return 'Tối đa 50 người'; return null; },
+  budget: (v: number) => { if (v < 0) return 'Ngân sách không được âm'; if (v > 10000000000) return 'Ngân sách tối đa 10 tỷ VNĐ'; return null; },
+};
+
+export const commentValidation = {
+  content: (v: string) => { if (!v.trim()) return 'Nội dung không được trống'; if (v.length < 2) return 'Tối thiểu 2 ký tự'; if (v.length > 1000) return 'Tối đa 1000 ký tự'; return null; },
+};
+
+export const profileValidation = {
+  fullName: (v: string) => { if (!v.trim()) return 'Tên là bắt buộc'; if (v.length > 50) return 'Tối đa 50 ký tự'; return null; },
+  homeCity: (v: string) => { if (v && v.length > 50) return 'Tối đa 50 ký tự'; return null; },
+};
