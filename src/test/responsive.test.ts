@@ -1,0 +1,7 @@
+import { describe, it, expect } from 'vitest';
+import { BREAKPOINTS, getBreakpoint, isAboveBreakpoint, isBelowBreakpoint, getResponsiveValue, getGridColumns, getSidebarWidth } from '@/lib/responsive';
+describe('getBreakpoint', () => { it('should identify breakpoints', () => { expect(getBreakpoint(300)).toBe('xs'); expect(getBreakpoint(700)).toBe('sm'); expect(getBreakpoint(800)).toBe('md'); expect(getBreakpoint(1100)).toBe('lg'); expect(getBreakpoint(1300)).toBe('xl'); expect(getBreakpoint(1600)).toBe('2xl'); }); });
+describe('isAboveBreakpoint', () => { it('should check above', () => { expect(isAboveBreakpoint(1024, 'lg')).toBe(true); expect(isAboveBreakpoint(767, 'md')).toBe(false); }); });
+describe('getResponsiveValue', () => { it('should return value for current breakpoint', () => { expect(getResponsiveValue(1100, { xs: 1, md: 2, lg: 3 }, 0)).toBe(3); expect(getResponsiveValue(500, { md: 2 }, 1)).toBe(1); }); });
+describe('getGridColumns', () => { it('should return grid columns', () => { expect(getGridColumns(1300)).toBe(4); expect(getGridColumns(1100)).toBe(3); expect(getGridColumns(800)).toBe(2); expect(getGridColumns(500)).toBe(1); }); });
+describe('getSidebarWidth', () => { it('should return sidebar width', () => { expect(getSidebarWidth(1300)).toBe(280); expect(getSidebarWidth(1100)).toBe(250); expect(getSidebarWidth(700)).toBe(0); }); });
