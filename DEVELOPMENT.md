@@ -1,71 +1,78 @@
-# TravelViet AI - Development Guide
+# Development Guide
 
 ## Prerequisites
 
-- Node.js 18+
-- npm or bun
-- Supabase account
+- **Node.js** 18+ (recommended: 20 LTS)
+- **npm** 9+ or **bun**
+- **Git**
+- **Supabase CLI** (optional, for local development)
 
-## Getting Started
+## Quick Start
 
 ```bash
+# Clone and install
+git clone https://github.com/maitamdev/TravelViet-AI.git
+cd TravelViet-AI
 npm install
+
+# Configure environment
 cp .env.example .env
+# Edit .env with your Supabase project credentials
+
+# Start development server
 npm run dev
-```
-
-## Project Structure
-
-```
-src/
-├── components/         # React components
-│   ├── auth/           # Authentication
-│   ├── layout/         # Layout components
-│   ├── maps/           # Map components
-│   ├── trips/          # Trip-related components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom hooks
-│   ├── useAuth.ts      # Authentication
-│   ├── useTrips.ts     # Trip CRUD
-│   ├── useChat.ts      # AI Chat
-│   ├── useBudget.ts    # Budget tracking
-│   ├── useBookmarks.ts # Bookmarks
-│   ├── useCollaboration.ts # Collaboration
-│   ├── useLikes.ts     # Likes
-│   ├── useVotes.ts     # Votes
-│   ├── useReports.ts   # Reports
-│   └── usePlanVersions.ts # AI Plan versions
-├── lib/                # Utilities
-│   ├── constants.ts    # App constants
-│   ├── validation.ts   # Form validation
-│   ├── date-utils.ts   # Date helpers
-│   ├── budget-utils.ts # Budget helpers
-│   ├── trip-utils.ts   # Trip helpers
-│   ├── map-utils.ts    # Map helpers
-│   └── share-utils.ts  # Share helpers
-├── pages/              # Page components
-│   ├── auth/           # Auth pages
-│   └── dashboard/      # Dashboard pages
-├── types/              # TypeScript types
-└── test/               # Tests
 ```
 
 ## Available Scripts
 
-- `npm run dev` - Development server
-- `npm run build` - Production build
-- `npm run test` - Run tests
-- `npm run lint` - Lint code
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server (Vite) |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+| `npm run test` | Run tests once |
+| `npm run test:watch` | Run tests in watch mode |
 
-## Features
+## Project Architecture
 
-1. AI Trip Planning (Groq API)
-2. Trip Management (CRUD)
-3. Budget Tracking
-4. Community Sharing
-5. Collaboration (Members, Comments, Tasks, Votes)
-6. Destination Explorer
-7. Bookmarks & Favorites
-8. Profile Management
-9. Notifications
-10. Maps (Leaflet)
+### Frontend (React + TypeScript)
+- **Vite** for fast HMR and bundling
+- **React Router v6** with lazy loading for code splitting
+- **TanStack Query** for server state management
+- **shadcn/ui** + **Tailwind CSS** for styling
+- **Framer Motion** for animations
+- **Zod** for runtime type validation
+
+### Backend (Supabase)
+- **PostgreSQL** database with 16 tables
+- **Row Level Security** for data protection
+- **Edge Functions** (Deno runtime) for AI processing
+- **Realtime** subscriptions for collaboration features
+
+### AI Integration
+- **Groq API** with Llama 3.3 70B model
+- Streaming responses for real-time chat
+- Context-aware trip planning with Vietnamese culture focus
+
+## Testing
+
+```bash
+# Run all tests
+npm test
+
+# Watch mode
+npm run test:watch
+
+# Run specific test file
+npx vitest run src/test/search-utils.test.ts
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Build fails with import errors**: Run `npm install` to update dependencies
+2. **Supabase connection issues**: Verify `.env` credentials and project status
+3. **AI chat not working**: Check GROQ_API_KEY in Supabase Edge Function secrets
+4. **Tests failing**: Ensure `jsdom` environment is configured in `vitest.config.ts`
