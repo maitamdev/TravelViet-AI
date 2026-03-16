@@ -1,0 +1,6 @@
+import { describe, it, expect } from 'vitest';
+import { WEATHER_BY_REGION, getBestTravelMonths, getWeatherWarning, packingByWeather } from '@/lib/weather-forecast';
+describe('WEATHER_BY_REGION', () => { it('should have data', () => { expect(WEATHER_BY_REGION.length).toBeGreaterThan(0); }); });
+describe('getBestTravelMonths', () => { it('should return months with good weather', () => { const months = getBestTravelMonths('south'); expect(months.length).toBeGreaterThan(0); }); });
+describe('getWeatherWarning', () => { it('should warn about heavy rain', () => { const w = getWeatherWarning(10, 'central'); if (w) expect(w).toContain('Mưa'); }); });
+describe('packingByWeather', () => { it('should suggest warm clothing for cold weather', () => { const items = packingByWeather(15, 50); expect(items).toContain('Áo khoác dày'); }); it('should suggest rain gear for rainy weather', () => { const items = packingByWeather(25, 200); expect(items).toContain('Áo mưa'); expect(items).toContain('Ô dù'); }); });
