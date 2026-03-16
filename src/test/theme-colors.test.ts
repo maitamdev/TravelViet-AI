@@ -1,0 +1,9 @@
+import { describe, it, expect } from 'vitest';
+import { BRAND_COLORS, GRADIENTS, hexToRgb, rgbToHex, getContrastColor, adjustBrightness, generatePalette } from '@/lib/theme-colors';
+describe('hexToRgb', () => { it('should convert hex to RGB', () => { expect(hexToRgb('#ff0000')).toEqual({ r: 255, g: 0, b: 0 }); expect(hexToRgb('#ffffff')).toEqual({ r: 255, g: 255, b: 255 }); }); it('should return null for invalid', () => { expect(hexToRgb('invalid')).toBeNull(); }); });
+describe('rgbToHex', () => { it('should convert RGB to hex', () => { expect(rgbToHex(255, 0, 0)).toBe('#ff0000'); expect(rgbToHex(0, 0, 0)).toBe('#000000'); }); });
+describe('getContrastColor', () => { it('should return white for dark colors', () => { expect(getContrastColor('#000000')).toBe('white'); }); it('should return black for light colors', () => { expect(getContrastColor('#ffffff')).toBe('black'); }); });
+describe('adjustBrightness', () => { it('should lighten colors', () => { const lighter = adjustBrightness('#808080', 25); expect(lighter).not.toBe('#808080'); }); });
+describe('generatePalette', () => { it('should generate 5 color palette', () => { const palette = generatePalette('#2563eb'); expect(palette).toHaveLength(5); palette.forEach(c => expect(c).toMatch(/^#[0-9a-f]{6}$/)); }); });
+describe('BRAND_COLORS', () => { it('should have all brand colors', () => { expect(BRAND_COLORS.primary).toBeTruthy(); expect(BRAND_COLORS.success).toBeTruthy(); expect(BRAND_COLORS.danger).toBeTruthy(); }); });
+describe('GRADIENTS', () => { it('should have gradient definitions', () => { expect(GRADIENTS.primary).toContain('linear-gradient'); expect(GRADIENTS.ocean).toContain('linear-gradient'); }); });
