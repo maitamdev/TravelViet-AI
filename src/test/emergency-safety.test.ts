@@ -1,0 +1,6 @@
+import { describe, it, expect } from 'vitest';
+import { EMERGENCY_CONTACTS, SAFETY_TIPS, getEmergencyByService, getHighPrioritySafetyTips, getSafetyTipsByCategory } from '@/lib/emergency-safety';
+describe('EMERGENCY_CONTACTS', () => { it('should include essential services', () => { expect(EMERGENCY_CONTACTS.some(c => c.number === '113')).toBe(true); expect(EMERGENCY_CONTACTS.some(c => c.number === '115')).toBe(true); }); });
+describe('getEmergencyByService', () => { it('should find service', () => { const police = getEmergencyByService('công an'); expect(police?.number).toBe('113'); }); });
+describe('getHighPrioritySafetyTips', () => { it('should return high priority tips', () => { const tips = getHighPrioritySafetyTips(); expect(tips.length).toBeGreaterThan(0); tips.forEach(t => expect(t.priority).toBe('high')); }); });
+describe('getSafetyTipsByCategory', () => { it('should filter by category', () => { const transport = getSafetyTipsByCategory('Giao thông'); expect(transport.length).toBeGreaterThan(0); }); });
