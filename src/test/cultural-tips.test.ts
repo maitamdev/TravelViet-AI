@@ -1,0 +1,6 @@
+import { describe, it, expect } from 'vitest';
+import { CULTURAL_TIPS, getTipsByCategory, getEssentialTips, getTipCategories } from '@/lib/cultural-tips';
+describe('CULTURAL_TIPS', () => { it('should have tips', () => { expect(CULTURAL_TIPS.length).toBeGreaterThanOrEqual(8); }); it('each tip should have required fields', () => { CULTURAL_TIPS.forEach(t => { expect(t.category).toBeTruthy(); expect(t.title).toBeTruthy(); expect(t.description).toBeTruthy(); expect(['essential','recommended','good-to-know']).toContain(t.importance); }); }); });
+describe('getTipsByCategory', () => { it('should filter by category', () => { const tips = getTipsByCategory('Giao tiếp'); expect(tips.length).toBeGreaterThan(0); tips.forEach(t => expect(t.category).toBe('Giao tiếp')); }); });
+describe('getEssentialTips', () => { it('should return only essential tips', () => { const tips = getEssentialTips(); expect(tips.length).toBeGreaterThan(0); tips.forEach(t => expect(t.importance).toBe('essential')); }); });
+describe('getTipCategories', () => { it('should return unique categories', () => { const cats = getTipCategories(); expect(cats.length).toBeGreaterThan(0); expect(new Set(cats).size).toBe(cats.length); }); });
