@@ -1,0 +1,7 @@
+import { describe, it, expect } from 'vitest';
+import { ITINERARY_TEMPLATES, getTemplatesByMode, getTemplatesByBudget, getTemplatesByDays, getTemplatesByTag } from '@/lib/itinerary-templates';
+describe('ITINERARY_TEMPLATES', () => { it('should have templates', () => { expect(ITINERARY_TEMPLATES.length).toBeGreaterThanOrEqual(5); }); it('each should have required fields', () => { ITINERARY_TEMPLATES.forEach(t => { expect(t.id).toBeTruthy(); expect(t.title).toBeTruthy(); expect(t.days).toBeGreaterThan(0); expect(t.budget).toBeGreaterThan(0); }); }); });
+describe('getTemplatesByMode', () => { it('should filter by mode', () => { const solo = getTemplatesByMode('solo'); expect(solo.length).toBeGreaterThan(0); solo.forEach(t => expect(t.mode).toBe('solo')); }); });
+describe('getTemplatesByBudget', () => { it('should filter by max budget', () => { const cheap = getTemplatesByBudget(3000000); cheap.forEach(t => expect(t.budget).toBeLessThanOrEqual(3000000)); }); });
+describe('getTemplatesByDays', () => { it('should filter by days', () => { const d3 = getTemplatesByDays(3); d3.forEach(t => expect(t.days).toBe(3)); }); });
+describe('getTemplatesByTag', () => { it('should filter by tag', () => { const beach = getTemplatesByTag('biển'); expect(beach.length).toBeGreaterThan(0); }); });
