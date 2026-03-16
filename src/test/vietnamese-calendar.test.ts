@@ -1,0 +1,10 @@
+import { describe, it, expect } from 'vitest';
+import { getVietnameseDay, getVietnameseMonth, formatFullDateVN, isSameDay, isWeekend, addDays, getMonthDays, getQuarter } from '@/lib/vietnamese-calendar';
+describe('getVietnameseDay', () => { it('should return Vietnamese day name', () => { const monday = new Date('2026-03-16'); expect(getVietnameseDay(monday)).toBe('Thứ hai'); }); });
+describe('getVietnameseMonth', () => { it('should return month name', () => { expect(getVietnameseMonth(0)).toBe('Tháng 1'); expect(getVietnameseMonth(11)).toBe('Tháng 12'); }); });
+describe('formatFullDateVN', () => { it('should format full date', () => { const result = formatFullDateVN('2026-03-16'); expect(result).toContain('Thứ hai'); expect(result).toContain('16'); expect(result).toContain('2026'); }); });
+describe('isSameDay', () => { it('should compare dates', () => { expect(isSameDay(new Date('2026-01-01'), new Date('2026-01-01'))).toBe(true); expect(isSameDay(new Date('2026-01-01'), new Date('2026-01-02'))).toBe(false); }); });
+describe('isWeekend', () => { it('should detect weekends', () => { expect(isWeekend(new Date('2026-03-14'))).toBe(true); expect(isWeekend(new Date('2026-03-16'))).toBe(false); }); });
+describe('addDays', () => { it('should add days', () => { const d = addDays(new Date('2026-01-01'), 5); expect(d.getDate()).toBe(6); }); });
+describe('getMonthDays', () => { it('should return days in month', () => { expect(getMonthDays(2026, 1)).toBe(28); expect(getMonthDays(2026, 0)).toBe(31); }); });
+describe('getQuarter', () => { it('should return quarter', () => { expect(getQuarter(new Date('2026-01-15'))).toBe(1); expect(getQuarter(new Date('2026-07-01'))).toBe(3); }); });
