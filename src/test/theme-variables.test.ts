@@ -1,0 +1,4 @@
+import { describe, it, expect } from 'vitest';
+import { cssVariables, darkThemeOverrides } from '@/styles/theme-variables';
+describe('cssVariables', () => { it('should have all required CSS variables', () => { expect(cssVariables['--color-primary']).toBeTruthy(); expect(cssVariables['--color-primary-foreground']).toBeTruthy(); expect(cssVariables['--radius']).toBeTruthy(); expect(cssVariables['--font-sans']).toContain('Inter'); }); });
+describe('darkThemeOverrides', () => { it('should have dark theme overrides', () => { expect(darkThemeOverrides['--color-primary']).toBeTruthy(); expect(darkThemeOverrides['--color-primary']).not.toBe(cssVariables['--color-primary']); }); it('should override all necessary variables', () => { expect(Object.keys(darkThemeOverrides).length).toBeGreaterThanOrEqual(5); }); });
