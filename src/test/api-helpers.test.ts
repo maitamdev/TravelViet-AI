@@ -1,0 +1,6 @@
+import { describe, it, expect } from 'vitest';
+import { createSuccessResponse, createErrorResponse, isSuccessResponse, toQueryParams } from '@/lib/api-helpers';
+describe('createSuccessResponse', () => { it('should create success response', () => { const r = createSuccessResponse({ id: 1 }); expect(r.data).toEqual({ id: 1 }); expect(r.error).toBeNull(); }); });
+describe('createErrorResponse', () => { it('should create error response', () => { const r = createErrorResponse('Not found'); expect(r.data).toBeNull(); expect(r.error).toBe('Not found'); }); });
+describe('isSuccessResponse', () => { it('should identify success', () => { expect(isSuccessResponse(createSuccessResponse('ok'))).toBe(true); expect(isSuccessResponse(createErrorResponse('err'))).toBe(false); }); });
+describe('toQueryParams', () => { it('should build query string', () => { expect(toQueryParams({ a: '1', b: 2, c: true })).toBe('?a=1&b=2&c=true'); }); it('should skip null/undefined/empty', () => { expect(toQueryParams({ a: '1', b: null, c: undefined, d: '' })).toBe('?a=1'); }); it('should return empty for no params', () => { expect(toQueryParams({})).toBe(''); }); });
