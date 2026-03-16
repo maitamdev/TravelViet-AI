@@ -1,0 +1,8 @@
+import { describe, it, expect } from 'vitest';
+import { getPlaceholderImage, getDestinationPlaceholder, getAvatarPlaceholder, isValidImageType, compressImageUrl, FALLBACK_IMAGES } from '@/lib/image-placeholders';
+describe('getPlaceholderImage', () => { it('should generate placeholder URL', () => { const url = getPlaceholderImage(400, 300, 'Test'); expect(url).toContain('400x300'); expect(url).toContain('Test'); }); });
+describe('getDestinationPlaceholder', () => { it('should include destination name', () => { expect(getDestinationPlaceholder('Da Nang')).toContain('Da%20Nang'); }); });
+describe('getAvatarPlaceholder', () => { it('should generate avatar URL', () => { const url = getAvatarPlaceholder('John Doe'); expect(url).toContain('John'); expect(url).toContain('200'); }); });
+describe('isValidImageType', () => { it('should validate image types', () => { expect(isValidImageType({ type: 'image/jpeg' } as File)).toBe(true); expect(isValidImageType({ type: 'image/png' } as File)).toBe(true); expect(isValidImageType({ type: 'application/pdf' } as File)).toBe(false); }); });
+describe('compressImageUrl', () => { it('should add params for unsplash', () => { const url = compressImageUrl('https://images.unsplash.com/photo-123', 600); expect(url).toContain('w=600'); }); it('should return as-is for other URLs', () => { expect(compressImageUrl('https://example.com/img.jpg')).toBe('https://example.com/img.jpg'); }); });
+describe('FALLBACK_IMAGES', () => { it('should have all fallback paths', () => { expect(FALLBACK_IMAGES.destination).toBeTruthy(); expect(FALLBACK_IMAGES.avatar).toBeTruthy(); expect(FALLBACK_IMAGES.food).toBeTruthy(); }); });
