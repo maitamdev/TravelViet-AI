@@ -1,0 +1,5 @@
+import { describe, it, expect } from 'vitest';
+import { createPaginatedResponse, TRIP_SORT_OPTIONS, COMMUNITY_SORT_OPTIONS } from '@/types/api';
+describe('createPaginatedResponse', () => { it('should calculate pagination metadata', () => { const r = createPaginatedResponse([1,2,3], 10, 1, 3); expect(r.totalPages).toBe(4); expect(r.hasNext).toBe(true); expect(r.hasPrev).toBe(false); }); it('should handle last page', () => { const r = createPaginatedResponse([10], 10, 4, 3); expect(r.hasNext).toBe(false); expect(r.hasPrev).toBe(true); }); });
+describe('TRIP_SORT_OPTIONS', () => { it('should have sort options', () => { expect(TRIP_SORT_OPTIONS.length).toBeGreaterThanOrEqual(3); TRIP_SORT_OPTIONS.forEach(o => { expect(o.field).toBeTruthy(); expect(o.label).toBeTruthy(); }); }); });
+describe('COMMUNITY_SORT_OPTIONS', () => { it('should have community sort options', () => { expect(COMMUNITY_SORT_OPTIONS.length).toBeGreaterThanOrEqual(2); }); });
