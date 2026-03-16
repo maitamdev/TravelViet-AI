@@ -1,0 +1,5 @@
+import { describe, it, expect } from 'vitest';
+import { searchScore, sortByRelevance, buildSearchIndex } from '@/lib/search-utils';
+describe('searchScore', () => { it('exact match should score 100', () => { expect(searchScore('hello', 'hello')).toBe(100); }); it('prefix should score high', () => { expect(searchScore('hel', 'hello')).toBeGreaterThan(80); }); it('no match should score 0', () => { expect(searchScore('xyz', 'hello')).toBe(0); }); });
+describe('sortByRelevance', () => { it('should sort by relevance', () => { const items = ['Đà Nẵng', 'Hà Nội', 'Đà Lạt']; const sorted = sortByRelevance(items, 'Đà', s => s); expect(sorted[0]).toContain('Đà'); }); });
+describe('buildSearchIndex', () => { it('should build word index', () => { const items = ['hello world', 'foo bar']; const index = buildSearchIndex(items, i => [i]); expect(index.get('hello')?.has(0)).toBe(true); expect(index.get('bar')?.has(1)).toBe(true); }); });
