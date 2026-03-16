@@ -1,0 +1,9 @@
+import { describe, it, expect } from 'vitest';
+import { haversineDistance, estimateTravelTime, formatDistance, formatTravelTime, calculateTotalRouteDistance, findNearestPoint, estimateTransportCost } from '@/lib/distance-utils';
+describe('haversineDistance', () => { it('should calculate distance between two points', () => { const d = haversineDistance(21.0285, 105.8542, 16.0544, 108.2022); expect(d).toBeGreaterThan(700); expect(d).toBeLessThan(900); }); it('should return 0 for same point', () => { expect(haversineDistance(10, 10, 10, 10)).toBe(0); }); });
+describe('estimateTravelTime', () => { it('should estimate time by mode', () => { expect(estimateTravelTime(60, 'car')).toBe(60); expect(estimateTravelTime(5, 'walk')).toBe(60); }); });
+describe('formatDistance', () => { it('should format in meters for short distances', () => { expect(formatDistance(0.5)).toBe('500 m'); }); it('should format in km for longer distances', () => { expect(formatDistance(10.5)).toBe('10.5 km'); }); });
+describe('formatTravelTime', () => { it('should format minutes', () => { expect(formatTravelTime(30)).toBe('30 phút'); expect(formatTravelTime(90)).toBe('1 giờ 30 phút'); expect(formatTravelTime(120)).toBe('2 giờ'); }); });
+describe('calculateTotalRouteDistance', () => { it('should sum distances', () => { const points = [{ lat: 21, lng: 105 }, { lat: 16, lng: 108 }, { lat: 10, lng: 106 }]; const total = calculateTotalRouteDistance(points); expect(total).toBeGreaterThan(0); }); });
+describe('findNearestPoint', () => { it('should find nearest point', () => { const points = [{ lat: 21, lng: 105, name: 'HN' }, { lat: 10, lng: 106, name: 'HCM' }]; const nearest = findNearestPoint(20, 105, points); expect(nearest?.name).toBe('HN'); }); });
+describe('estimateTransportCost', () => { it('should estimate cost', () => { const cost = estimateTransportCost(10, 'grab'); expect(cost).toBeGreaterThan(0); }); });
