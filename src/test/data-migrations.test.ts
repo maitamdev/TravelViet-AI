@@ -1,0 +1,7 @@
+import { describe, it, expect, beforeEach } from 'vitest';
+import { getCurrentSchemaVersion, setSchemaVersion, runMigrations, APP_MIGRATIONS } from '@/lib/data-migrations';
+beforeEach(() => { localStorage.clear(); });
+describe('getCurrentSchemaVersion', () => { it('should return 0 when no version set', () => { expect(getCurrentSchemaVersion()).toBe(0); }); it('should return stored version', () => { localStorage.setItem('travelviet_schema_version', '5'); expect(getCurrentSchemaVersion()).toBe(5); }); });
+describe('setSchemaVersion', () => { it('should set version', () => { setSchemaVersion(3); expect(localStorage.getItem('travelviet_schema_version')).toBe('3'); }); });
+describe('runMigrations', () => { it('should run pending migrations', () => { const migrations = [ { version: 1, description: 'test1', migrate: () => { localStorage.setItem('test_1', 'done'); } }, { version: 2, description: 'test2', migrate: () => { localStorage.setItem('test_2', 'done'); } }, ]; const result = runMigrations(migrations); expect(result.ran).toBe(2); expect(result.errors).toHaveLength(0); expect(getCurrentSchemaVersion()).toBe(2); }); it('should skip already run migrations', () => { setSchemaVersion(1); const result = runMigrations([{ version: 1, description: 'skip', migrate: () => {} }]); expect(result.ran).toBe(0); }); });
+describe('APP_MIGRATIONS', () => { it('should have ordered versions', () => { for (let i = 1; i < APP_MIGRATIONS.length; i++) { expect(APP_MIGRATIONS[i].version).toBeGreaterThan(APP_MIGRATIONS[i-1].version); } }); });
