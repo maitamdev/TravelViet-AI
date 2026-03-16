@@ -22,3 +22,28 @@ export function highlightMatch(text: string, query: string): string {
 export function normalizeVietnamese(str: string): string {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 }
+
+export function searchScore(query: string, text: string): number {
+  const q = query.toLowerCase(); const t = text.toLowerCase();
+  if (t === q) return 100;
+  if (t.startsWith(q)) return 90;
+  if (t.includes(q)) return 70 + (q.length / t.length) * 20;
+  let qi = 0; let score = 0;
+  for (let i = 0; i < t.length && qi < q.length; i++) { if (t[i] === q[qi]) { qi++; score += 10; } }
+  return qi === q.length ? score : 0;
+}
+
+export function sortByRelevance<T>(items: T[], query: string, getText: (item: T) => string): T[] {
+  return items.map(item => ({ item, score: searchScore(query, getText(item)) })).filter(r => r.score > 0).sort((a, b) => b.score - a.score).map(r => r.item);
+}
+
+export function buildSearchIndex<T>(items: T[], getFields: (item: T) => string[]): Map<string, Set<number>> {
+  const index = new Map<string, Set<number>>();
+  items.forEach((item, idx) => {
+    getFields(item).forEach(field => {
+      const words = field.toLowerCase().split(/\s+/);
+      words.forEach(word => { if (!index.has(word)) index.set(word, new Set()); index.get(word)!.add(idx); });
+    });
+  });
+  return index;
+}
