@@ -1,0 +1,5 @@
+import { describe, it, expect } from 'vitest';
+import { VIETNAM_HOLIDAYS, getHolidaysByMonth, getPublicHolidays, getHolidaysByRegion } from '@/lib/holiday-data';
+describe('VIETNAM_HOLIDAYS', () => { it('should have holiday entries', () => { expect(VIETNAM_HOLIDAYS.length).toBeGreaterThanOrEqual(5); }); it('each should have required fields', () => { VIETNAM_HOLIDAYS.forEach(h => { expect(h.name).toBeTruthy(); expect(h.date).toMatch(/^\d{2}-\d{2}$/); expect(h.regions.length).toBeGreaterThan(0); }); }); });
+describe('getPublicHolidays', () => { it('should return only public holidays', () => { const ph = getPublicHolidays(); expect(ph.length).toBeGreaterThan(0); ph.forEach(h => expect(h.isPublicHoliday).toBe(true)); }); });
+describe('getHolidaysByRegion', () => { it('should filter by region', () => { const daLat = getHolidaysByRegion('Đà Lạt'); expect(daLat.some(h => h.name.includes('Hoa'))).toBe(true); }); it('should include nationwide holidays', () => { const any = getHolidaysByRegion('Ha Noi'); expect(any.length).toBeGreaterThan(0); }); });
